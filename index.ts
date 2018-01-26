@@ -16,6 +16,8 @@ export interface IMdconfMeta
 		date: string,
 		status: string,
 
+		source: string,
+
 		publisher?: string,
 	},
 

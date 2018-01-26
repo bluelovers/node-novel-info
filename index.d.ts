@@ -8,6 +8,7 @@ export interface IMdconfMeta {
         tags: string[];
         date: string;
         status: string;
+        source: string;
         publisher?: string;
     };
     contribute: string[];
