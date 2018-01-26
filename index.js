@@ -5,17 +5,19 @@ exports.mdconf = mdconf;
 const crlf_normalize_1 = require("crlf-normalize");
 function mdconf_parse(data, options = {}) {
     let ret = mdconf(crlf_normalize_1.crlf(data.toString()));
-    const old = ret;
     try {
-        ret.novel.preface = (ret.novel.preface
-            && ret.novel.preface.length
-            && Array.isArray(ret.novel.preface)) ?
-            ret.novel.preface.join(crlf_normalize_1.LF) : ret.novel.preface;
+        if (ret.novel.preface) {
+            ret.novel.preface = (ret.novel.preface
+                && ret.novel.preface.length
+                && Array.isArray(ret.novel.preface)) ?
+                ret.novel.preface.join(crlf_normalize_1.LF) : ret.novel.preface;
+        }
+        ret.options = ret.options || {};
+        ret.options.textlayout = Object.assign({}, ret.options.textlayout);
     }
     catch (e) {
+        console.error(e.toString());
     }
-    ret.options = ret.options || {};
-    ret.options.textlayout = Object.assign({}, ret.options.textlayout);
     if (options.chk || options.chk == null) {
         ret = chkInfo(ret);
     }
@@ -29,7 +31,7 @@ function mdconf_parse(data, options = {}) {
 }
 exports.mdconf_parse = mdconf_parse;
 function chkInfo(ret) {
-    if (!ret || !ret.novel || ret.novel.title) {
+    if (!ret || !ret.novel || !ret.novel.title) {
         return null;
     }
     return ret;

@@ -2,14 +2,14 @@
  * Created by user on 2018/1/27/027.
  */
 
-import self from '..';
+import novelInfo from '..';
 // @ts-ignore
 import * as fs from 'fs-extra';
 
-fs.readFile('./res/README_BAD.md')
+fs.readFile('./res/README.md')
 	.then(function (buf)
 	{
-		return self.mdconf_parse(buf, {
+		return novelInfo.mdconf_parse(buf, {
 			//chk: false
 		});
 	})

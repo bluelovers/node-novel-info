@@ -44,23 +44,24 @@ export function mdconf_parse(data, options: IOptions = {}): IMdconfMeta
 {
 	let ret = mdconf(crlf(data.toString())) as IMdconfMeta;
 
-	const old = ret;
-
 	try
 	{
-		ret.novel.preface = (ret.novel.preface
-			&& ret.novel.preface.length
-			&& Array.isArray(ret.novel.preface)) ?
-			ret.novel.preface.join(LF) : ret.novel.preface
-		;
+		if (ret.novel.preface)
+		{
+			ret.novel.preface = (ret.novel.preface
+				&& ret.novel.preface.length
+				&& Array.isArray(ret.novel.preface)) ?
+				ret.novel.preface.join(LF) : ret.novel.preface
+			;
+		}
+
+		ret.options = ret.options || {};
+		ret.options.textlayout = Object.assign({}, ret.options.textlayout);
 	}
 	catch (e)
 	{
-
+		console.error(e.toString());
 	}
-
-	ret.options = ret.options || {};
-	ret.options.textlayout = Object.assign({}, ret.options.textlayout);
 
 	if (options.chk || options.chk == null)
 	{
@@ -82,7 +83,7 @@ export function mdconf_parse(data, options: IOptions = {}): IMdconfMeta
 
 export function chkInfo(ret: IMdconfMeta): IMdconfMeta
 {
-	if (!ret || !ret.novel || ret.novel.title)
+	if (!ret || !ret.novel || !ret.novel.title)
 	{
 		return null;
 	}
