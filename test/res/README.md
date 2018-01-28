@@ -4,6 +4,7 @@
 - title: 自卫队三部曲
 - author: 有川浩
 - source: http://www.wenku8.com/modules/article/reader.php?aid=350
+- publisher: 富士见文库
 - cover: http://img.wenku8.com/image/0/350/350s.jpg
 - date: 2011-06-22T00:00:00+08:00
 - status: 已完成
@@ -23,5 +24,14 @@
 
 # contribute
 
-- 
+-
+
+# options
+
+## textlayout
+
+- allow_lf2: true
+
+
+
 
