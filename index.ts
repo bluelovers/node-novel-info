@@ -2,7 +2,8 @@
  * Created by user on 2018/1/27/027.
  */
 
-import * as mdconf from 'mdconf';
+// @ts-ignore
+import * as mdconf from 'mdconf2';
 import { crlf, LF } from 'crlf-normalize';
 import { array_unique } from './lib';
 
@@ -32,7 +33,7 @@ export interface IMdconfMeta
 	},
 }
 
-export { mdconf }
+export { mdconf, array_unique, crlf }
 
 export interface IOptions
 {

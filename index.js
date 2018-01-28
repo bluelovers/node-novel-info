@@ -1,9 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const mdconf = require("mdconf");
+const mdconf = require("mdconf2");
 exports.mdconf = mdconf;
 const crlf_normalize_1 = require("crlf-normalize");
+exports.crlf = crlf_normalize_1.crlf;
 const lib_1 = require("./lib");
+exports.array_unique = lib_1.array_unique;
 function mdconf_parse(data, options = {}) {
     let ret = mdconf(crlf_normalize_1.crlf(data.toString()));
     try {

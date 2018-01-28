@@ -1,4 +1,6 @@
-import * as mdconf from 'mdconf';
+import * as mdconf from 'mdconf2';
+import { crlf } from 'crlf-normalize';
+import { array_unique } from './lib';
 export interface IMdconfMeta {
     novel: {
         title: string;
@@ -19,7 +21,7 @@ export interface IMdconfMeta {
         [key: string]: any;
     };
 }
-export { mdconf };
+export { mdconf, array_unique, crlf };
 export interface IOptions {
     chk?: boolean;
     throw?: boolean;

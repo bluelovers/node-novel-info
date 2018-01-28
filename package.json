@@ -1,12 +1,13 @@
 {
   "name": "node-novel-info",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "mdconf module for node-novel",
   "keywords": [
     "config",
     "info",
     "json",
     "md",
+    "mdconf",
     "mdconfig",
     "node-novel",
     "novel",
@@ -31,7 +32,7 @@
   },
   "dependencies": {
     "crlf-normalize": "^1.0.0",
-    "mdconf": "0.0.2"
+    "mdconf2": "0.0.2"
   },
   "devDependencies": {}
 }
