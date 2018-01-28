@@ -92,23 +92,23 @@ export function chkInfo(ret: IMdconfMeta): IMdconfMeta
 		return null;
 	}
 
-	if (typeof ret.novel.tags == 'string')
-	{
-		ret.novel.tags = [ret.novel.tags];
-	}
-
 	if (ret.novel.tags)
 	{
-		ret.novel.tags = array_unique(ret.novel.tags);
-	}
+		if (typeof ret.novel.tags == 'string')
+		{
+			ret.novel.tags = [ret.novel.tags];
+		}
 
-	if (typeof ret.contribute == 'string')
-	{
-		ret.contribute = [ret.contribute];
+		ret.novel.tags = array_unique(ret.novel.tags);
 	}
 
 	if (ret.contribute)
 	{
+		if (typeof ret.contribute == 'string')
+		{
+			ret.contribute = [ret.contribute];
+		}
+
 		ret.contribute = array_unique(ret.contribute);
 	}
 

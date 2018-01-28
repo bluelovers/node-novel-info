@@ -35,16 +35,16 @@ function chkInfo(ret) {
     if (!ret || !ret.novel || !ret.novel.title) {
         return null;
     }
-    if (typeof ret.novel.tags == 'string') {
-        ret.novel.tags = [ret.novel.tags];
-    }
     if (ret.novel.tags) {
+        if (typeof ret.novel.tags == 'string') {
+            ret.novel.tags = [ret.novel.tags];
+        }
         ret.novel.tags = lib_1.array_unique(ret.novel.tags);
     }
-    if (typeof ret.contribute == 'string') {
-        ret.contribute = [ret.contribute];
-    }
     if (ret.contribute) {
+        if (typeof ret.contribute == 'string') {
+            ret.contribute = [ret.contribute];
+        }
         ret.contribute = lib_1.array_unique(ret.contribute);
     }
     ret.options = ret.options || {};

@@ -1,37 +1,37 @@
 {
   "name": "node-novel-info",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "mdconf module for node-novel",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [
-    "node-novel",
-    "txt",
     "config",
     "info",
-    "md",
     "json",
+    "md",
     "mdconfig",
-    "novel"
+    "node-novel",
+    "novel",
+    "txt"
   ],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "crlf-normalize": "^1.0.0",
-    "mdconf": "0.0.2"
+  "homepage": "https://github.com/bluelovers/node-novel-info#readme",
+  "bugs": {
+    "url": "https://github.com/bluelovers/node-novel-info/issues"
   },
+  "license": "ISC",
+  "author": "",
+  "main": "index.js",
   "directories": {
     "test": "test"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bluelovers/node-novel-info.git"
   },
-  "bugs": {
-    "url": "https://github.com/bluelovers/node-novel-info/issues"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "homepage": "https://github.com/bluelovers/node-novel-info#readme"
+  "dependencies": {
+    "crlf-normalize": "^1.0.0",
+    "mdconf": "0.0.2"
+  },
+  "devDependencies": {}
 }
