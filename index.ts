@@ -4,6 +4,7 @@
 
 import * as mdconf from 'mdconf';
 import { crlf, LF } from 'crlf-normalize';
+import { array_unique } from './lib';
 
 export interface IMdconfMeta
 {
@@ -27,6 +28,7 @@ export interface IMdconfMeta
 		textlayout?: {
 			allow_lf2?: boolean,
 		},
+		[key: string]: any,
 	},
 }
 
@@ -89,6 +91,28 @@ export function chkInfo(ret: IMdconfMeta): IMdconfMeta
 	{
 		return null;
 	}
+
+	if (typeof ret.novel.tags == 'string')
+	{
+		ret.novel.tags = [ret.novel.tags];
+	}
+
+	if (ret.novel.tags)
+	{
+		ret.novel.tags = array_unique(ret.novel.tags);
+	}
+
+	if (typeof ret.contribute == 'string')
+	{
+		ret.contribute = [ret.contribute];
+	}
+
+	if (ret.contribute)
+	{
+		ret.contribute = array_unique(ret.contribute);
+	}
+
+	ret.options = ret.options || {};
 
 	return ret;
 }

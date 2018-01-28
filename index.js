@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mdconf = require("mdconf");
 exports.mdconf = mdconf;
 const crlf_normalize_1 = require("crlf-normalize");
+const lib_1 = require("./lib");
 function mdconf_parse(data, options = {}) {
     let ret = mdconf(crlf_normalize_1.crlf(data.toString()));
     try {
@@ -34,6 +35,19 @@ function chkInfo(ret) {
     if (!ret || !ret.novel || !ret.novel.title) {
         return null;
     }
+    if (typeof ret.novel.tags == 'string') {
+        ret.novel.tags = [ret.novel.tags];
+    }
+    if (ret.novel.tags) {
+        ret.novel.tags = lib_1.array_unique(ret.novel.tags);
+    }
+    if (typeof ret.contribute == 'string') {
+        ret.contribute = [ret.contribute];
+    }
+    if (ret.contribute) {
+        ret.contribute = lib_1.array_unique(ret.contribute);
+    }
+    ret.options = ret.options || {};
     return ret;
 }
 exports.chkInfo = chkInfo;

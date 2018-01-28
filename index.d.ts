@@ -16,6 +16,7 @@ export interface IMdconfMeta {
         textlayout?: {
             allow_lf2?: boolean;
         };
+        [key: string]: any;
     };
 }
 export { mdconf };
