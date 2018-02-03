@@ -85,3 +85,10 @@ console.log(Mdconf.stringify({
 
 - lf: true
 ```
+
+## links
+
+- [node-novel-info](https://www.npmjs.com/package/node-novel-info)
+- [mdconf2](https://www.npmjs.com/package/mdconf2)
+- [mdconf-stringify](https://www.npmjs.com/package/mdconf-stringify)
+
