@@ -9,6 +9,10 @@
     "md",
     "mdconf",
     "mdconfig",
+    "json",
+    "parse",
+    "markdown",
+    "stringify",
     "node-novel",
     "novel",
     "txt"
