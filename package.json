@@ -1,6 +1,6 @@
 {
   "name": "node-novel-info",
-  "version": "1.0.4",
+  "version": "2.0.0",
   "description": "mdconf module for node-novel",
   "keywords": [
     "config",
@@ -28,11 +28,16 @@
     "url": "git+https://github.com/bluelovers/node-novel-info.git"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx jsmd README.md"
   },
   "dependencies": {
     "crlf-normalize": "^1.0.0",
-    "mdconf2": "0.0.2"
+    "deepmerge-plus": "^2.0.2",
+    "is-plain-object": "^2.0.4",
+    "mdconf2": "0.0.2",
+    "moment": "^2.20.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "fs-extra": "^5.0.0"
+  }
 }
