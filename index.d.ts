@@ -1,16 +1,23 @@
 import * as mdconf from 'mdconf2';
 import { crlf, LF } from 'crlf-normalize';
-import { array_unique } from './lib';
+import { array_unique, deepmerge, deepmergeOptions } from './lib';
 export { mdconf, array_unique, crlf, LF };
+export { deepmerge, deepmergeOptions };
 export interface IMdconfMeta {
     novel?: {
         title?: string;
+        title_short?: string;
         author?: string;
         cover?: string;
         preface?: string;
         tags?: string[];
         date?: string;
         status?: string;
+        r18?: string;
+        series?: {
+            name?: string;
+            name_short?: string;
+        };
         source?: string;
         publisher?: string;
     };

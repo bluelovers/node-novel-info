@@ -2,27 +2,33 @@
  * Created by user on 2018/1/27/027.
  */
 
-// @ts-ignore
 import * as mdconf from 'mdconf2';
 import { crlf, LF } from 'crlf-normalize';
-import { array_unique, deepmergeOptions } from './lib';
-import * as deepmerge from 'deepmerge-plus';
+import { array_unique, deepmerge, deepmergeOptions } from './lib';
 import * as moment from 'moment';
 import * as isPlainObject from 'is-plain-object';
 import * as sortObjectKeys from 'sort-object-keys2';
 
 export { mdconf, array_unique, crlf, LF }
+export { deepmerge, deepmergeOptions }
 
 export interface IMdconfMeta
 {
 	novel?: {
 		title?: string,
+		title_short?: string,
 		author?: string,
 		cover?: string,
 		preface?: string,
 		tags?: string[],
 		date?: string,
 		status?: string,
+		r18?: string,
+
+		series?: {
+			name?: string,
+			name_short?: string,
+		},
 
 		source?: string,
 
@@ -127,12 +133,17 @@ export function sortKeys(ret: IMdconfMeta)
 
 	sortSubKey('novel', [
 		'title',
+		'title_short',
 		'author',
 		'source',
 		'cover',
 		'publisher',
 		'date',
 		'status',
+		'r18',
+
+		'series',
+
 		'preface',
 		'tags',
 	]);
@@ -203,14 +214,14 @@ export function chkInfo(ret: IMdconfMeta): IMdconfMeta
 		return null;
 	}
 
-	if (ret.novel.tags)
+	if ('tags' in ret.novel)
 	{
 		if (typeof ret.novel.tags == 'string')
 		{
 			ret.novel.tags = [ret.novel.tags];
 		}
 
-		ret.novel.tags = array_unique(ret.novel.tags);
+		ret.novel.tags = array_unique(ret.novel.tags || []);
 	}
 
 	if ('contribute' in ret)

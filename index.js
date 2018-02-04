@@ -7,7 +7,8 @@ exports.crlf = crlf_normalize_1.crlf;
 exports.LF = crlf_normalize_1.LF;
 const lib_1 = require("./lib");
 exports.array_unique = lib_1.array_unique;
-const deepmerge = require("deepmerge-plus");
+exports.deepmerge = lib_1.deepmerge;
+exports.deepmergeOptions = lib_1.deepmergeOptions;
 const isPlainObject = require("is-plain-object");
 const sortObjectKeys = require("sort-object-keys2");
 exports.defaultOptionsParse = {
@@ -29,7 +30,7 @@ function parse(data, options = {}) {
                 && ret.novel.preface.length
                 && Array.isArray(ret.novel.preface)) ? ret.novel.preface.join(crlf_normalize_1.LF) : ret.novel.preface;
         }
-        ret.options = deepmerge(ret.options || {}, {
+        ret.options = lib_1.deepmerge(ret.options || {}, {
             textlayout: {},
         }, lib_1.deepmergeOptions);
     }
@@ -59,12 +60,15 @@ function sortKeys(ret) {
     ]);
     sortSubKey('novel', [
         'title',
+        'title_short',
         'author',
         'source',
         'cover',
         'publisher',
         'date',
         'status',
+        'r18',
+        'series',
         'preface',
         'tags',
     ]);
@@ -110,11 +114,11 @@ function chkInfo(ret) {
     if (!ret || !ret.novel || !ret.novel.title) {
         return null;
     }
-    if (ret.novel.tags) {
+    if ('tags' in ret.novel) {
         if (typeof ret.novel.tags == 'string') {
             ret.novel.tags = [ret.novel.tags];
         }
-        ret.novel.tags = lib_1.array_unique(ret.novel.tags);
+        ret.novel.tags = lib_1.array_unique(ret.novel.tags || []);
     }
     if ('contribute' in ret) {
         if (typeof ret.contribute == 'string') {

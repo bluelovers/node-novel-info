@@ -4,6 +4,9 @@
 
 import * as deepmerge from 'deepmerge-plus';
 import * as moment from 'moment';
+import * as mdconf from 'mdconf2';
+
+export { deepmerge, moment, mdconf }
 
 export function array_unique(array: any[])
 {
@@ -17,7 +20,7 @@ export const deepmergeOptions: deepmerge.Options = {
 	isMergeableObject(value, isMergeableObject) {
 		let bool;
 
-		if (bool = moment.isMoment(value)) {
+		if (moment.isMoment(value) || mdconf.RawObject.isRawObject(value)) {
 			return false;
 		}
 	}
