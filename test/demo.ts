@@ -17,6 +17,10 @@ fs.readFile('./res/README.md')
 	{
 		console.log(conf);
 
+		return conf;
+	})
+	.then(function (conf)
+	{
 		console.log(novelInfo.stringify(conf));
 	})
 ;

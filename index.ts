@@ -9,6 +9,7 @@ import { array_unique, deepmergeOptions } from './lib';
 import * as deepmerge from 'deepmerge-plus';
 import * as moment from 'moment';
 import * as isPlainObject from 'is-plain-object';
+import * as sortObjectKeys from 'sort-object-keys2';
 
 export { mdconf, array_unique, crlf, LF }
 
@@ -52,6 +53,8 @@ export const defaultOptionsParse: IOptionsParse = {
 
 export function stringify(data, ...argv): string
 {
+	data = sortKeys(data);
+
 	return mdconf.stringify(data, ...argv);
 }
 
@@ -104,6 +107,92 @@ export function parse(data, options: IOptionsParse = {}): IMdconfMeta
 		}
 	}
 
+	if (ret)
+	{
+		ret = sortKeys(ret);
+
+		//console.log(777);
+	}
+
+	return ret;
+}
+
+export function sortKeys(ret: IMdconfMeta)
+{
+	ret = sortObjectKeys(ret, [
+		'novel',
+		'contribute',
+		'options',
+	]);
+
+	sortSubKey('novel', [
+		'title',
+		'author',
+		'source',
+		'cover',
+		'publisher',
+		'date',
+		'status',
+		'preface',
+		'tags',
+	]);
+
+	sortSubKey(['novel', 'tags'], null, true);
+	sortSubKey('contribute', null, true);
+	sortSubKey('options');
+
+	function sortSubKey(key, sortList?: string[], unique?: boolean)
+	{
+		let obj = ret;
+		let parent = obj;
+
+		//console.log(obj, sortList);
+
+		if (Array.isArray(key))
+		{
+			for (let value of key)
+			{
+				if (!(value in parent))
+				{
+					return;
+				}
+
+				parent = obj;
+				obj = parent[value];
+			}
+		}
+		else if ((key in parent))
+		{
+			obj = parent[key];
+		}
+		else
+		{
+			return;
+		}
+
+		//console.log(obj, sortList);
+
+		if (Array.isArray(obj))
+		{
+			parent[key] = obj.sort();
+			if (unique)
+			{
+				parent[key] = array_unique(obj);
+
+				if (parent[key].length == 1 && (parent[key][0] === null || typeof parent[key][0] == 'undefined'))
+				{
+					parent[key] = [];
+				}
+			}
+
+			return;
+		}
+		if (isPlainObject(obj))
+		{
+			parent[key] = sortObjectKeys(obj, sortList);
+		}
+	}
+
 	return ret;
 }
 
@@ -124,14 +213,14 @@ export function chkInfo(ret: IMdconfMeta): IMdconfMeta
 		ret.novel.tags = array_unique(ret.novel.tags);
 	}
 
-	if (ret.contribute)
+	if ('contribute' in ret)
 	{
 		if (typeof ret.contribute == 'string')
 		{
 			ret.contribute = [ret.contribute];
 		}
 
-		ret.contribute = array_unique(ret.contribute);
+		ret.contribute = array_unique(ret.contribute || []);
 	}
 
 	ret.options = ret.options || {};
