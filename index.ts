@@ -71,6 +71,11 @@ export function stringify(data, d2?, ...argv): string
 	data.novel.tags.unshift('node-novel');
 	data.novel.tags = array_unique(data.novel.tags);
 
+	if (data.novel.preface && typeof data.novel.preface == 'string')
+	{
+		data.novel.preface = new mdconf.RawObject(data.novel.preface);
+	}
+
 	return mdconf.stringify(data);
 }
 

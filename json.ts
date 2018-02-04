@@ -24,6 +24,7 @@ module JsonMd
 			author?: string,
 			g_lnovel_name?: string
 			type?: string[],
+			lastupdate?: string,
 		},
 
 		novel_date?,
@@ -204,6 +205,8 @@ ${(data.novel_desc || data.data.desc || '').replace(/\`/g, '\\`')}
 					tags: data.data.type,
 
 					preface: data.data.desc,
+
+					date: data.data.lastupdate,
 				},
 			});
 		}

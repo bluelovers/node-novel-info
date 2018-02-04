@@ -11,6 +11,7 @@ declare module JsonMd {
             author?: string;
             g_lnovel_name?: string;
             type?: string[];
+            lastupdate?: string;
         };
         novel_date?: any;
         novel_title?: string;

@@ -132,6 +132,7 @@ ${(data.novel_desc || data.data.desc || '').replace(/\`/g, '\\`')}
                     cover: data.data.cover_pic,
                     tags: data.data.type,
                     preface: data.data.desc,
+                    date: data.data.lastupdate,
                 },
             });
         }
