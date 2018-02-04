@@ -8,6 +8,7 @@ import { array_unique, deepmerge, deepmergeOptions } from './lib';
 import * as moment from 'moment';
 import * as isPlainObject from 'is-plain-object';
 import * as sortObjectKeys from 'sort-object-keys2';
+import JsonMd from './json';
 
 export { mdconf, array_unique, crlf, LF }
 export { deepmerge, deepmergeOptions }
@@ -28,6 +29,7 @@ export interface IMdconfMeta
 		series?: {
 			name?: string,
 			name_short?: string,
+			position?: number,
 		},
 
 		source?: string,
@@ -57,11 +59,19 @@ export const defaultOptionsParse: IOptionsParse = {
 	removeRawData: true,
 };
 
-export function stringify(data, ...argv): string
+export function stringify(data, d2?, ...argv): string
 {
-	data = sortKeys(data);
+	data = JsonMd.toNovelInfo(data, d2 || {}, {
+		novel: {
+			tags: [],
+		},
+	}, ...argv);
 
-	return mdconf.stringify(data, ...argv);
+	data = sortKeys(data);
+	data.novel.tags.unshift('node-novel');
+	data.novel.tags = array_unique(data.novel.tags);
+
+	return mdconf.stringify(data);
 }
 
 export function parse(data: {
@@ -161,16 +171,26 @@ export function sortKeys(ret: IMdconfMeta)
 
 		if (Array.isArray(key))
 		{
+			//console.log(key);
+
+			let _k;
+
 			for (let value of key)
 			{
-				if (!(value in parent))
+				if (!(value in obj))
 				{
+					//console.log(value, parent);
+
 					return;
 				}
+
+				_k = value;
 
 				parent = obj;
 				obj = parent[value];
 			}
+
+			key = _k;
 		}
 		else if ((key in parent))
 		{
@@ -181,14 +201,18 @@ export function sortKeys(ret: IMdconfMeta)
 			return;
 		}
 
-		//console.log(obj, sortList);
-
 		if (Array.isArray(obj))
 		{
-			parent[key] = obj.sort();
+			obj.sort();
+			parent[key] = obj;
 			if (unique)
 			{
-				parent[key] = array_unique(obj);
+				parent[key] = parent[key].filter(function (v)
+				{
+					return v;
+				});
+
+				parent[key] = array_unique(parent[key]);
 
 				if (parent[key].length == 1 && (parent[key][0] === null || typeof parent[key][0] == 'undefined'))
 				{

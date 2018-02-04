@@ -24,7 +24,8 @@ declare module JsonMd {
     }
     function stringify(json_data: IJsonmdData_v1, options?: IMdconfMeta & IOptions): string;
     function stringify(json_data: IMdconfMeta, options?: IMdconfMeta & IOptions): string;
-    function stringify(json_data: IJsonmdData_v1 & IMdconfMeta & IOptions, options?: IMdconfMeta & IOptions): string;
+    function stringify(json_data: Partial<IJsonmdData_v1 & IMdconfMeta & IOptions>, options?: IMdconfMeta & IOptions): string;
+    function toNovelInfo(initData: Partial<IMdconfMeta>, inputData: Partial<IJsonmdData_v1 & IMdconfMeta & IOptions>, ...argv: Partial<IJsonmdData_v1 & IMdconfMeta & IOptions>[]): IMdconfMeta;
 }
 export { JsonMd };
 export default JsonMd;

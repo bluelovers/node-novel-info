@@ -11,12 +11,20 @@ exports.deepmerge = lib_1.deepmerge;
 exports.deepmergeOptions = lib_1.deepmergeOptions;
 const isPlainObject = require("is-plain-object");
 const sortObjectKeys = require("sort-object-keys2");
+const json_1 = require("./json");
 exports.defaultOptionsParse = {
     removeRawData: true,
 };
-function stringify(data, ...argv) {
+function stringify(data, d2, ...argv) {
+    data = json_1.default.toNovelInfo(data, d2 || {}, {
+        novel: {
+            tags: [],
+        },
+    }, ...argv);
     data = sortKeys(data);
-    return mdconf.stringify(data, ...argv);
+    data.novel.tags.unshift('node-novel');
+    data.novel.tags = lib_1.array_unique(data.novel.tags);
+    return mdconf.stringify(data);
 }
 exports.stringify = stringify;
 function parse(data, options = {}) {
@@ -79,13 +87,16 @@ function sortKeys(ret) {
         let obj = ret;
         let parent = obj;
         if (Array.isArray(key)) {
+            let _k;
             for (let value of key) {
-                if (!(value in parent)) {
+                if (!(value in obj)) {
                     return;
                 }
+                _k = value;
                 parent = obj;
                 obj = parent[value];
             }
+            key = _k;
         }
         else if ((key in parent)) {
             obj = parent[key];
@@ -94,9 +105,13 @@ function sortKeys(ret) {
             return;
         }
         if (Array.isArray(obj)) {
-            parent[key] = obj.sort();
+            obj.sort();
+            parent[key] = obj;
             if (unique) {
-                parent[key] = lib_1.array_unique(obj);
+                parent[key] = parent[key].filter(function (v) {
+                    return v;
+                });
+                parent[key] = lib_1.array_unique(parent[key]);
                 if (parent[key].length == 1 && (parent[key][0] === null || typeof parent[key][0] == 'undefined')) {
                     parent[key] = [];
                 }

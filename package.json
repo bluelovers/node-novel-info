@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "crlf-normalize": "^1.0.0",
-    "deepmerge-plus": "^2.0.4",
+    "deepmerge-plus": "^2.1.0",
     "is-plain-object": "^2.0.4",
     "mdconf2": "^1.0.3",
     "moment": "^2.20.1",

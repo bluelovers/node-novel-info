@@ -41,13 +41,15 @@ module JsonMd
 
 	export function stringify(json_data: IJsonmdData_v1, options?: IMdconfMeta & IOptions): string
 	export function stringify(json_data: IMdconfMeta, options?: IMdconfMeta & IOptions): string
-	export function stringify(json_data: IJsonmdData_v1 & IMdconfMeta & IOptions, options?: IMdconfMeta & IOptions): string
+	export function stringify(json_data: Partial<IJsonmdData_v1 & IMdconfMeta & IOptions>,
+		options?: IMdconfMeta & IOptions
+	): string
 	export function stringify(json_data, options: IMdconfMeta & IOptions = {}): string
 	{
 		let data = {
 			tags: [],
 			contribute: [],
-		} as IMdconfMeta & IJsonmdData_v1 & IOptions;
+		} as Partial<IMdconfMeta & IJsonmdData_v1 & IOptions>;
 
 		{
 			data = deepmerge.all([data, json_data, data, options], deepmergeOptions);
@@ -100,6 +102,8 @@ module JsonMd
 			}
 		}
 
+		data = Mdconf.sortKeys(data);
+
 		let md = `\n# novel
 
 - title: ${data.novel_title || data.data.g_lnovel_name}
@@ -111,7 +115,17 @@ module JsonMd
 - status: ${data.novel_status || ''}
 `;
 
-		md += Mdconf.stringify(data.novel, 2, ['title', 'author', 'source', 'publisher', 'cover', 'date', 'status', 'preface', 'tags']);
+		md += Mdconf.stringify(data.novel, 2, [
+			'title',
+			'author',
+			'source',
+			'publisher',
+			'cover',
+			'date',
+			'status',
+			'preface',
+			'tags'
+		]);
 
 		md += `\n## preface
 
@@ -138,6 +152,110 @@ ${(data.novel_desc || data.data.desc || '').replace(/\`/g, '\\`')}
 
 		return LF + md.replace(/^\n+|\s+$/g, '') + LF;
 	}
+
+	export function toNovelInfo(initData: Partial<IMdconfMeta>, inputData: Partial<IJsonmdData_v1 & IMdconfMeta & IOptions>, ...argv: Partial<IJsonmdData_v1 & IMdconfMeta & IOptions>[]): IMdconfMeta
+	{
+		let ret: IMdconfMeta;
+
+		let data = deepmerge.all([
+			{},
+			inputData || {},
+			...argv,
+		], deepmergeOptions);
+
+		let ls: Partial<IJsonmdData_v1 & IMdconfMeta & IOptions>[] = [
+			{
+				novel: {
+					tags: [],
+				},
+				contribute: [],
+				options: {},
+			},
+			initData || {},
+			{
+				novel: data.novel,
+				contribute: data.contribute,
+				options: data.options,
+			},
+			{
+				novel: {
+					title: data.novel_title,
+					author: data.novel_author,
+					date: data.novel_date,
+					preface: data.novel_desc,
+					status: data.novel_status,
+					publisher: data.novel_publisher,
+					cover: data.novel_cover,
+					source: data.url,
+
+					tags: data.tags,
+				},
+			},
+		];
+
+		if (data.data)
+		{
+			ls.push({
+				novel: {
+					title: data.data.g_lnovel_name,
+					author: data.data.author,
+					cover: data.data.cover_pic,
+
+					tags: data.data.type,
+
+					preface: data.data.desc,
+				},
+			});
+		}
+
+		ret = deepmerge.all([
+			...ls,
+			{
+				novel: {
+					title: '',
+					author: '',
+					date: '',
+					preface: '',
+					status: '',
+					publisher: '',
+					cover: '',
+					source: '',
+
+					//tags: [],
+				},
+				//contribute: [],
+				//options: {},
+			},
+		], Object.assign({
+			keyValueOrMode: true,
+		}, deepmergeOptions) as deepmerge.Options);
+
+		Mdconf.chkInfo(ret);
+
+		if (ret.novel.source)
+		{
+			[
+				/(wenku8)/,
+				/(dmzj)/,
+				/(dmzj)/,
+				/(novel18)?\.(syosetu)/
+			].forEach(function (r)
+			{
+				let m;
+				if (m = r.exec(ret.novel.source))
+				{
+					ret.novel.tags = ret.novel.tags.concat(m.slice(1));
+				}
+			});
+		}
+
+		ret = Mdconf.sortKeys(ret);
+		ret.novel.tags.unshift('node-novel');
+		ret.novel.tags = array_unique(ret.novel.tags);
+
+		return ret;
+	}
+
 }
 
 export { JsonMd };

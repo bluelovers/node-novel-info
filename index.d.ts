@@ -17,6 +17,7 @@ export interface IMdconfMeta {
         series?: {
             name?: string;
             name_short?: string;
+            position?: number;
         };
         source?: string;
         publisher?: string;
@@ -35,7 +36,7 @@ export interface IOptionsParse extends mdconf.IOptionsParse {
     removeRawData?: boolean;
 }
 export declare const defaultOptionsParse: IOptionsParse;
-export declare function stringify(data: any, ...argv: any[]): string;
+export declare function stringify(data: any, d2?: any, ...argv: any[]): string;
 export declare function parse(data: {
     toString(): string;
 }, options?: IOptionsParse): IMdconfMeta;
