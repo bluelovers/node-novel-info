@@ -8,19 +8,25 @@
 
 [README.md](test/res/README.md)
 
+```
+const novelInfo = require('node-novel-info');
+import * as novelInfo from 'node-novel-info';
+import novelInfo from 'node-novel-info';
+```
+
 ### mdconf_parse
 
 <!-- js
 var novelInfo = require('.');
 var fs = require('fs-extra');
-var Mdconf = novelInfo.Mdconf;
+var Mdconf = novelInfo;
 -->
 
 ```js
 fs.readFile('./test/res/README.md')
 	.then(function (buf)
 	{
-		return novelInfo.mdconf_parse(buf, {
+		return novelInfo.parse(buf, {
 			//chk: false
 		});
 	})
@@ -53,7 +59,7 @@ fs.readFile('./test/res/README.md')
 
 ```js
 var moment = require("moment");
-console.log(Mdconf.stringify({
+console.log(novelInfo.stringify({
 	novel: {
 		test: true,
 	},

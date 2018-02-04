@@ -1,20 +1,19 @@
 {
   "name": "node-novel-info",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "mdconf module for node-novel",
   "keywords": [
     "config",
     "info",
     "json",
+    "markdown",
     "md",
     "mdconf",
     "mdconfig",
-    "json",
-    "parse",
-    "markdown",
-    "stringify",
     "node-novel",
     "novel",
+    "parse",
+    "stringify",
     "txt"
   ],
   "homepage": "https://github.com/bluelovers/node-novel-info#readme",
@@ -38,7 +37,7 @@
     "crlf-normalize": "^1.0.0",
     "deepmerge-plus": "^2.0.2",
     "is-plain-object": "^2.0.4",
-    "mdconf2": "0.0.2",
+    "mdconf2": "^1.0.2",
     "moment": "^2.20.1"
   },
   "devDependencies": {

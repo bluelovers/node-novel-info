@@ -9,12 +9,14 @@ import * as fs from 'fs-extra';
 fs.readFile('./res/README.md')
 	.then(function (buf)
 	{
-		return novelInfo.mdconf_parse(buf, {
+		return novelInfo.parse(buf, {
 			//chk: false
 		});
 	})
 	.then(function (conf)
 	{
 		console.log(conf);
+
+		console.log(novelInfo.stringify(conf));
 	})
 ;
