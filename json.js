@@ -56,7 +56,7 @@ var JsonMd;
 - date: ${data.novel_date || ''}
 - status: ${data.novel_status || ''}
 `;
-        md += index_1.Mdconf.stringify(data.novel, 2, ['title', 'author', 'source', 'publisher', 'cover', 'date', 'status', 'preface', 'tags']);
+        md += index_1.default.stringify(data.novel, 2, ['title', 'author', 'source', 'publisher', 'cover', 'date', 'status', 'preface', 'tags']);
         md += `\n## preface
 
 \`\`\`
@@ -73,7 +73,7 @@ ${(data.novel_desc || data.data.desc || '').replace(/\`/g, '\\`')}
 `;
         if (data.options) {
             md += `\n# options\n`;
-            md += index_1.Mdconf.stringify(data.options, 2);
+            md += index_1.default.stringify(data.options, 2);
         }
         return crlf_normalize_1.LF + md.replace(/^\n+|\s+$/g, '') + crlf_normalize_1.LF;
     }

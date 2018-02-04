@@ -6,7 +6,7 @@ import { crlf, LF } from 'crlf-normalize';
 import { array_unique, deepmergeOptions } from './lib';
 import * as deepmerge from 'deepmerge-plus';
 import * as moment from 'moment';
-import { IMdconfMeta, Mdconf } from './index';
+import Mdconf, { IMdconfMeta } from './index';
 
 module JsonMd
 {
