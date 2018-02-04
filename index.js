@@ -8,6 +8,9 @@ exports.LF = crlf_normalize_1.LF;
 const lib_1 = require("./lib");
 exports.array_unique = lib_1.array_unique;
 const deepmerge = require("deepmerge-plus");
+exports.defaultOptionsParse = {
+    removeRawData: true,
+};
 function stringify(data, ...argv) {
     return mdconf.stringify(data, ...argv);
 }

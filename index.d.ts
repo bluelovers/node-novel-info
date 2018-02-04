@@ -22,16 +22,17 @@ export interface IMdconfMeta {
         [key: string]: any;
     };
 }
-export interface IOptions extends mdconf.IOptionsParse {
+export interface IOptionsParse extends mdconf.IOptionsParse {
     chk?: boolean;
     throw?: boolean;
     removeRawData?: boolean;
 }
+export declare const defaultOptionsParse: IOptionsParse;
 export declare function stringify(data: any, ...argv: any[]): string;
 export declare function parse(data: {
     toString(): string;
-}, options?: IOptions): IMdconfMeta;
-export declare function parse(data: string, options?: IOptions): IMdconfMeta;
+}, options?: IOptionsParse): IMdconfMeta;
+export declare function parse(data: string, options?: IOptionsParse): IMdconfMeta;
 export declare function chkInfo(ret: IMdconfMeta): IMdconfMeta;
 export declare const mdconf_parse: typeof self.parse;
 import * as self from './index';

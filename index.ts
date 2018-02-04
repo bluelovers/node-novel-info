@@ -38,13 +38,17 @@ export interface IMdconfMeta
 	},
 }
 
-export interface IOptions extends mdconf.IOptionsParse
+export interface IOptionsParse extends mdconf.IOptionsParse
 {
 	chk?: boolean,
 	throw?: boolean,
 
 	removeRawData?: boolean,
 }
+
+export const defaultOptionsParse: IOptionsParse = {
+	removeRawData: true,
+};
 
 export function stringify(data, ...argv): string
 {
@@ -53,9 +57,9 @@ export function stringify(data, ...argv): string
 
 export function parse(data: {
 	toString(): string,
-}, options?: IOptions): IMdconfMeta
-export function parse(data: string, options?: IOptions): IMdconfMeta
-export function parse(data, options: IOptions = {}): IMdconfMeta
+}, options?: IOptionsParse): IMdconfMeta
+export function parse(data: string, options?: IOptionsParse): IMdconfMeta
+export function parse(data, options: IOptionsParse = {}): IMdconfMeta
 {
 	if (options.removeRawData)
 	{
