@@ -29,6 +29,7 @@ export interface IMdconfMeta {
         };
         [key: string]: any;
     };
+    link?: string[];
 }
 export interface IOptionsParse extends mdconf.IOptionsParse {
     chk?: boolean;

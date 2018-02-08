@@ -45,6 +45,8 @@ export interface IMdconfMeta
 		},
 		[key: string]: any,
 	},
+
+	link?: string[],
 }
 
 export interface IOptionsParse extends mdconf.IOptionsParse
@@ -73,10 +75,10 @@ export function stringify(data, d2?, ...argv): string
 
 	if (data.novel.preface && typeof data.novel.preface == 'string')
 	{
-		data.novel.preface = new mdconf.RawObject(data.novel.preface);
+		data.novel.preface = new mdconf.RawObject(data.novel.preface, {});
 	}
 
-	return mdconf.stringify(data);
+	return mdconf.stringify(data) + LF.repeat(2);
 }
 
 export function parse(data: {

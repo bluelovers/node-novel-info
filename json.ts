@@ -187,9 +187,15 @@ ${(data.novel_desc || data.data.desc || '').replace(/\`/g, '\\`')}
 					status: data.novel_status,
 					publisher: data.novel_publisher,
 					cover: data.novel_cover,
-					source: data.url,
+					// @ts-ignore
+					source: data.url && data.url.href ? data.url.href : data.url,
 
 					tags: data.tags,
+				},
+			},
+			{
+				novel: {
+					source: data.url_data.url,
 				},
 			},
 		];
@@ -241,7 +247,8 @@ ${(data.novel_desc || data.data.desc || '').replace(/\`/g, '\\`')}
 				/(wenku8)/,
 				/(dmzj)/,
 				/(dmzj)/,
-				/(novel18)?\.(syosetu)/
+				/(novel18)?\.(syosetu)/,
+				/(alphapolis)/,
 			].forEach(function (r)
 			{
 				let m;
