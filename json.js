@@ -136,7 +136,6 @@ ${(data.novel_desc || data.data.desc || '').replace(/\`/g, '\\`')}
                 },
             },
         ];
-        console.log(data);
         if (data.data) {
             ls.push({
                 novel: {
