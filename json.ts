@@ -6,7 +6,7 @@ import { crlf, LF } from 'crlf-normalize';
 import { array_unique, deepmergeOptions } from './lib';
 import * as deepmerge from 'deepmerge-plus';
 import * as moment from 'moment';
-import Mdconf, { IMdconfMeta } from './index';
+import Mdconf, { IMdconfMeta, stringify } from './index';
 
 module JsonMd
 {
@@ -195,10 +195,21 @@ ${(data.novel_desc || data.data.desc || '').replace(/\`/g, '\\`')}
 			},
 			{
 				novel: {
-					source: data.url_data.url,
+					source: data.url && (typeof data.url == 'string' ?
+						data.url
+						// @ts-ignore
+						: data.url.href
+					),
+				},
+			},
+			{
+				novel: {
+					source: data.url_data && (typeof data.url_data.url == 'string' ? data.url_data.url : data.url_data.url.href),
 				},
 			},
 		];
+
+		console.log(data);
 
 		if (data.data)
 		{

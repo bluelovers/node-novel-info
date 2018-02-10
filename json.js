@@ -125,10 +125,18 @@ ${(data.novel_desc || data.data.desc || '').replace(/\`/g, '\\`')}
             },
             {
                 novel: {
-                    source: data.url_data.url,
+                    source: data.url && (typeof data.url == 'string' ?
+                        data.url
+                        : data.url.href),
+                },
+            },
+            {
+                novel: {
+                    source: data.url_data && (typeof data.url_data.url == 'string' ? data.url_data.url : data.url_data.url.href),
                 },
             },
         ];
+        console.log(data);
         if (data.data) {
             ls.push({
                 novel: {

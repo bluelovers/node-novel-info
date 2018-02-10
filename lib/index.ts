@@ -5,6 +5,7 @@
 import * as deepmerge from 'deepmerge-plus';
 import * as moment from 'moment';
 import * as mdconf from 'mdconf2';
+import { URL } from 'jsdom-url';
 
 export { deepmerge, moment, mdconf }
 
@@ -21,6 +22,11 @@ export const deepmergeOptions: deepmerge.Options = {
 		let bool;
 
 		if (moment.isMoment(value) || mdconf.RawObject.isRawObject(value)) {
+			return false;
+		}
+
+		if (value instanceof URL || value && typeof value.href == 'string')
+		{
 			return false;
 		}
 	}
