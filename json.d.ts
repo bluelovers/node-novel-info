@@ -20,6 +20,7 @@ declare module JsonMd {
         novel_publisher?: string;
         novel_cover?: string;
         novel_status?: string;
+        novel_series_title?: string;
         novel_desc?: string;
         [key: string]: any;
     }
