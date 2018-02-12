@@ -168,6 +168,9 @@ ${(data.novel_desc || data.data.desc || '').replace(/\`/g, '\\`')}
 			{
 				novel: {
 					tags: [],
+					series: {
+						name: '',
+					},
 				},
 				contribute: [],
 				options: {},
@@ -193,7 +196,7 @@ ${(data.novel_desc || data.data.desc || '').replace(/\`/g, '\\`')}
 					tags: data.tags,
 
 					series: {
-						name: data.novel_series_title,
+						name: data.novel_series_title || '',
 					},
 				},
 			},
