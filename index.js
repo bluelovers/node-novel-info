@@ -72,6 +72,9 @@ function sortKeys(ret) {
     sortSubKey('novel', [
         'title',
         'title_short',
+        'title_zh',
+        'title_en',
+        'title_jp',
         'author',
         'source',
         'cover',

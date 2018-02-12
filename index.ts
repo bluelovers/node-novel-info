@@ -151,6 +151,9 @@ export function sortKeys(ret: IMdconfMeta)
 	sortSubKey('novel', [
 		'title',
 		'title_short',
+		'title_zh',
+		'title_en',
+		'title_jp',
 		'author',
 		'source',
 		'cover',

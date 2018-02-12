@@ -121,6 +121,9 @@ ${(data.novel_desc || data.data.desc || '').replace(/\`/g, '\\`')}
                     cover: data.novel_cover,
                     source: data.url && data.url.href ? data.url.href : data.url,
                     tags: data.tags,
+                    series: {
+                        name: data.novel_series_title,
+                    },
                 },
             },
             {

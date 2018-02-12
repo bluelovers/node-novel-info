@@ -191,6 +191,10 @@ ${(data.novel_desc || data.data.desc || '').replace(/\`/g, '\\`')}
 					source: data.url && data.url.href ? data.url.href : data.url,
 
 					tags: data.tags,
+
+					series: {
+						name: data.novel_series_title,
+					},
 				},
 			},
 			{
