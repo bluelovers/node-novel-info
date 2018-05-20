@@ -1,6 +1,6 @@
 {
   "name": "node-novel-info",
-  "version": "2.3.5",
+  "version": "2.3.6",
   "description": "mdconf module for node-novel",
   "keywords": [
     "config",
@@ -34,15 +34,15 @@
     "test": "npx jsmd README.md"
   },
   "dependencies": {
-    "crlf-normalize": "^1.0.1",
-    "deepmerge-plus": "^2.1.1",
+    "crlf-normalize": "^1.0.2",
+    "deepmerge-plus": "^2.1.2",
     "is-plain-object": "^2.0.4",
     "jsdom-url": "^2.2.0",
-    "mdconf2": "^1.0.4",
-    "moment": "^2.21.0",
-    "sort-object-keys2": "^1.0.1"
+    "mdconf2": "^1.1.6",
+    "moment": "^2.22.1",
+    "sort-object-keys2": "^1.0.3"
   },
   "devDependencies": {
-    "fs-extra": "^5.0.0"
+    "fs-extra": "^6.0.1"
   }
 }
