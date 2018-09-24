@@ -49,10 +49,10 @@ function parse(data, options = {}) {
         console.error(e.toString());
     }
     if (options.chk || options.chk == null) {
-        ret = chkInfo(ret);
+        ret = chkInfo(ret, options);
     }
     if (options.throw || options.throw == null) {
-        ret = chkInfo(ret);
+        ret = chkInfo(ret, options);
         if (!ret) {
             throw new Error('mdconf_parse');
         }

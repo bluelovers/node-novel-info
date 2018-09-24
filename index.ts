@@ -127,12 +127,12 @@ export function parse(data, options: IOptionsParse = {}): IMdconfMeta
 
 	if (options.chk || options.chk == null)
 	{
-		ret = chkInfo(ret);
+		ret = chkInfo(ret, options);
 	}
 
 	if (options.throw || options.throw == null)
 	{
-		ret = chkInfo(ret);
+		ret = chkInfo(ret, options);
 
 		if (!ret)
 		{
