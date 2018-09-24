@@ -131,11 +131,13 @@ function sortKeys(ret) {
     return ret;
 }
 exports.sortKeys = sortKeys;
-function chkInfo(ret) {
-    if (!ret || !ret.novel || !ret.novel.title) {
+function chkInfo(ret, options = {}) {
+    if (!ret
+        || ((!options || !options.lowCheckLevel)
+            && (!ret.novel || !ret.novel.title))) {
         return null;
     }
-    if ('tags' in ret.novel) {
+    if (ret.novel && ('tags' in ret.novel)) {
         if (typeof ret.novel.tags == 'string') {
             ret.novel.tags = [ret.novel.tags];
         }

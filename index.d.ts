@@ -38,6 +38,7 @@ export interface IOptionsParse extends mdconf.IOptionsParse {
     chk?: boolean;
     throw?: boolean;
     removeRawData?: boolean;
+    lowCheckLevel?: boolean;
 }
 export declare const defaultOptionsParse: IOptionsParse;
 export declare function stringify(data: any, d2?: any, ...argv: any[]): string;
@@ -46,7 +47,7 @@ export declare function parse(data: {
 }, options?: IOptionsParse): IMdconfMeta;
 export declare function parse(data: string, options?: IOptionsParse): IMdconfMeta;
 export declare function sortKeys(ret: IMdconfMeta): IMdconfMeta;
-export declare function chkInfo(ret: IMdconfMeta): IMdconfMeta;
+export declare function chkInfo(ret: IMdconfMeta, options?: IOptionsParse): IMdconfMeta;
 export declare const mdconf_parse: typeof parse;
 import * as self from './index';
 export default self;

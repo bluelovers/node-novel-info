@@ -60,6 +60,11 @@ export interface IOptionsParse extends mdconf.IOptionsParse
 	throw?: boolean,
 
 	removeRawData?: boolean,
+
+	/**
+	 * 允許殘缺不合法的 meta info
+	 */
+	lowCheckLevel?: boolean,
 }
 
 export const defaultOptionsParse: IOptionsParse = {
@@ -246,14 +251,19 @@ export function sortKeys(ret: IMdconfMeta)
 	return ret;
 }
 
-export function chkInfo(ret: IMdconfMeta): IMdconfMeta
+export function chkInfo(ret: IMdconfMeta, options: IOptionsParse = {}): IMdconfMeta
 {
-	if (!ret || !ret.novel || !ret.novel.title)
+	if (!ret
+		|| (
+			(!options || !options.lowCheckLevel)
+			&& (!ret.novel || !ret.novel.title)
+		)
+	)
 	{
 		return null;
 	}
 
-	if ('tags' in ret.novel)
+	if (ret.novel && ('tags' in ret.novel))
 	{
 		if (typeof ret.novel.tags == 'string')
 		{
