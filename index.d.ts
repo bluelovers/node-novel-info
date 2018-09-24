@@ -45,8 +45,8 @@ export declare function parse(data: {
     toString(): string;
 }, options?: IOptionsParse): IMdconfMeta;
 export declare function parse(data: string, options?: IOptionsParse): IMdconfMeta;
-export declare function sortKeys(ret: IMdconfMeta): self.IMdconfMeta;
+export declare function sortKeys(ret: IMdconfMeta): IMdconfMeta;
 export declare function chkInfo(ret: IMdconfMeta): IMdconfMeta;
-export declare const mdconf_parse: typeof self.parse;
+export declare const mdconf_parse: typeof parse;
 import * as self from './index';
 export default self;
