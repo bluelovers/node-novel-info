@@ -13,18 +13,36 @@ import JsonMd from './json';
 export { mdconf, array_unique, crlf, LF }
 export { deepmerge, deepmergeOptions }
 
+export type INumber = number | string;
+
+export interface IMdconfMetaOptionsNovelSite
+{
+	novel_id?: INumber,
+	url?: string,
+	[key: string]: any,
+}
+
 export interface IMdconfMeta
 {
 	novel?: {
 		title?: string,
+		title_source?: string,
+
 		title_short?: string,
+		title_output?: string,
 
 		title_zh?: string,
+		title_cn?: string,
+		title_tw?: string,
 		title_en?: string,
 		title_jp?: string,
 
 		author?: string,
+		authors?: string[],
+
 		cover?: string,
+		illust?: string[],
+
 		preface?: string,
 		tags?: string[],
 		date?: string,
@@ -38,6 +56,7 @@ export interface IMdconfMeta
 		},
 
 		source?: string,
+		sources?: string[],
 
 		publisher?: string,
 	}
@@ -45,8 +64,23 @@ export interface IMdconfMeta
 	contribute?: string[],
 
 	options?: {
+
+		dmzj?: IMdconfMetaOptionsNovelSite,
+		kakuyomu?: IMdconfMetaOptionsNovelSite,
+		wenku8?: IMdconfMetaOptionsNovelSite,
+		webqxs?: IMdconfMetaOptionsNovelSite,
+		syosetu?: IMdconfMetaOptionsNovelSite & {
+			txtdownload_id: INumber,
+		},
+
+		novel?: {
+			pattern?: string,
+			[key: string]: any,
+		},
+
 		textlayout?: {
 			allow_lf2?: boolean,
+			[key: string]: any,
 		},
 		[key: string]: any,
 	},
@@ -263,24 +297,24 @@ export function chkInfo(ret: IMdconfMeta, options: IOptionsParse = {}): IMdconfM
 		return null;
 	}
 
-	if (ret.novel && ('tags' in ret.novel))
+	if (ret.novel)
 	{
-		if (typeof ret.novel.tags == 'string')
-		{
-			ret.novel.tags = [ret.novel.tags];
-		}
-
-		ret.novel.tags = array_unique(ret.novel.tags || []);
+		[
+			'authors',
+			'illust',
+			'tags',
+			'sources',
+		].forEach(k => {
+			if (k in ret.novel)
+			{
+				ret.novel[k] = anyToArray(ret.novel[k], true);
+			}
+		})
 	}
 
 	if ('contribute' in ret)
 	{
-		if (typeof ret.contribute == 'string')
-		{
-			ret.contribute = [ret.contribute];
-		}
-
-		ret.contribute = array_unique(ret.contribute || []);
+		ret.contribute = anyToArray(ret.contribute, true);
 	}
 
 	ret.options = ret.options || {};
@@ -288,8 +322,26 @@ export function chkInfo(ret: IMdconfMeta, options: IOptionsParse = {}): IMdconfM
 	return ret;
 }
 
-export const mdconf_parse = parse;
+function anyToArray<T = string>(input: T | T[], unique?: boolean): T[]
+{
+	if (typeof input != 'object')
+	{
+		input = [input];
+	}
+
+	if (unique)
+	{
+		input = array_unique(input || []);
+	}
+
+	// @ts-ignore
+	return input;
+}
+
+export const version: string = require("./package.json").version;
 
 import * as self from './index';
+
+export import mdconf_parse = self.parse;
 
 export default self;

@@ -1,3 +1,6 @@
+/**
+ * Created by user on 2018/2/3/003.
+ */
 import { IMdconfMeta } from './index';
 declare module JsonMd {
     interface IOptions {

@@ -1,4 +1,7 @@
 "use strict";
+/**
+ * Created by user on 2018/1/27/027.
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const mdconf = require("mdconf2");
 exports.mdconf = mdconf;
@@ -59,6 +62,7 @@ function parse(data, options = {}) {
     }
     if (ret) {
         ret = sortKeys(ret);
+        //console.log(777);
     }
     return ret;
 }
@@ -92,10 +96,13 @@ function sortKeys(ret) {
     function sortSubKey(key, sortList, unique) {
         let obj = ret;
         let parent = obj;
+        //console.log(obj, sortList);
         if (Array.isArray(key)) {
+            //console.log(key);
             let _k;
             for (let value of key) {
                 if (!(value in obj)) {
+                    //console.log(value, parent);
                     return;
                 }
                 _k = value;
@@ -137,22 +144,36 @@ function chkInfo(ret, options = {}) {
             && (!ret.novel || !ret.novel.title))) {
         return null;
     }
-    if (ret.novel && ('tags' in ret.novel)) {
-        if (typeof ret.novel.tags == 'string') {
-            ret.novel.tags = [ret.novel.tags];
-        }
-        ret.novel.tags = lib_1.array_unique(ret.novel.tags || []);
+    if (ret.novel) {
+        [
+            'authors',
+            'illust',
+            'tags',
+            'sources',
+        ].forEach(k => {
+            if (k in ret.novel) {
+                ret.novel[k] = anyToArray(ret.novel[k], true);
+            }
+        });
     }
     if ('contribute' in ret) {
-        if (typeof ret.contribute == 'string') {
-            ret.contribute = [ret.contribute];
-        }
-        ret.contribute = lib_1.array_unique(ret.contribute || []);
+        ret.contribute = anyToArray(ret.contribute, true);
     }
     ret.options = ret.options || {};
     return ret;
 }
 exports.chkInfo = chkInfo;
-exports.mdconf_parse = parse;
+function anyToArray(input, unique) {
+    if (typeof input != 'object') {
+        input = [input];
+    }
+    if (unique) {
+        input = lib_1.array_unique(input || []);
+    }
+    // @ts-ignore
+    return input;
+}
+exports.version = require("./package.json").version;
 const self = require("./index");
+exports.mdconf_parse = self.parse;
 exports.default = self;

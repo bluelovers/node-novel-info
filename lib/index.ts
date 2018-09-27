@@ -3,8 +3,9 @@
  */
 
 import deepmerge = require('deepmerge-plus');
-import * as moment from 'moment';
-import * as mdconf from 'mdconf2';
+import * as deepmergeNS from 'deepmerge-plus/core';
+import moment = require('moment');
+import mdconf = require('mdconf2');
 import { URL } from 'jsdom-url';
 import { array_unique } from 'array-hyper-unique';
 
@@ -12,7 +13,7 @@ export { deepmerge, moment, mdconf }
 
 export { array_unique }
 
-export const deepmergeOptions: deepmerge.Options = {
+export const deepmergeOptions: deepmergeNS.Options = {
 	isMergeableObject(value, isMergeableObject) {
 		let bool;
 

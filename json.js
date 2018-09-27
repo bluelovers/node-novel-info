@@ -1,4 +1,7 @@
 "use strict";
+/**
+ * Created by user on 2018/2/3/003.
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const crlf_normalize_1 = require("crlf-normalize");
 const lib_1 = require("./lib");
@@ -122,6 +125,7 @@ ${(data.novel_desc || data.data.desc || '').replace(/\`/g, '\\`')}
                     status: data.novel_status,
                     publisher: data.novel_publisher,
                     cover: data.novel_cover,
+                    // @ts-ignore
                     source: data.url && data.url.href ? data.url.href : data.url,
                     tags: data.tags,
                     series: {
@@ -133,6 +137,7 @@ ${(data.novel_desc || data.data.desc || '').replace(/\`/g, '\\`')}
                 novel: {
                     source: data.url && (typeof data.url == 'string' ?
                         data.url
+                        // @ts-ignore
                         : data.url.href),
                 },
             },
@@ -142,6 +147,7 @@ ${(data.novel_desc || data.data.desc || '').replace(/\`/g, '\\`')}
                 },
             },
         ];
+        //console.log(data);
         if (data.data) {
             ls.push({
                 novel: {
