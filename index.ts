@@ -9,9 +9,11 @@ import * as moment from 'moment';
 import * as isPlainObject from 'is-plain-object';
 import * as sortObjectKeys from 'sort-object-keys2';
 import JsonMd from './json';
+import { envVal, envBool } from 'env-bool';
 
 export { mdconf, array_unique, crlf, LF }
 export { deepmerge, deepmergeOptions }
+export { envVal, envBool }
 
 export type INumber = number | string;
 
@@ -318,6 +320,20 @@ export function chkInfo(ret: IMdconfMeta, options: IOptionsParse = {}): IMdconfM
 	}
 
 	ret.options = ret.options || {};
+
+	if (typeof ret.options.textlayout === 'object')
+	{
+		Object.entries(ret.options.textlayout)
+			.forEach(([k, v]) => ret.options.textlayout[k] = envVal(v))
+		;
+	}
+
+	if (typeof ret.options.downloadoptions === 'object')
+	{
+		Object.entries(ret.options.downloadoptions)
+			.forEach(([k, v]) => ret.options.downloadoptions[k] = envVal(v))
+		;
+	}
 
 	return ret;
 }

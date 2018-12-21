@@ -4,8 +4,10 @@
 import * as mdconf from 'mdconf2';
 import { crlf, LF } from 'crlf-normalize';
 import { array_unique, deepmerge, deepmergeOptions } from './lib';
+import { envVal, envBool } from 'env-bool';
 export { mdconf, array_unique, crlf, LF };
 export { deepmerge, deepmergeOptions };
+export { envVal, envBool };
 export declare type INumber = number | string;
 export interface IMdconfMetaOptionsNovelSite {
     novel_id?: INumber;

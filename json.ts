@@ -4,8 +4,8 @@
 
 import { crlf, LF } from 'crlf-normalize';
 import { array_unique, deepmergeOptions } from './lib';
-import * as deepmerge from 'deepmerge-plus';
-import * as moment from 'moment';
+import deepmerge = require('deepmerge-plus');
+import moment = require('moment');
 import Mdconf, { IMdconfMeta, stringify } from './index';
 
 module JsonMd
@@ -257,6 +257,7 @@ ${(data.novel_desc || data.data.desc || '').replace(/\`/g, '\\`')}
 			},
 		], Object.assign({
 			keyValueOrMode: true,
+			// @ts-ignore
 		}, deepmergeOptions) as deepmerge.Options);
 
 		Mdconf.chkInfo(ret);
