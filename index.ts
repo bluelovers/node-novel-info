@@ -138,7 +138,7 @@ export function stringify(data, d2?, ...argv): string
 
 	if ('novel_status' in data.novel)
 	{
-		expect(data.novel.novel_status).is.type('number').a('number');
+		expect(data.novel.novel_status).a('number');
 
 		data.novel.novel_status = toHex(data.novel.novel_status, 4);
 	}
