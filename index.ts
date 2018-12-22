@@ -2,6 +2,7 @@
  * Created by user on 2018/1/27/027.
  */
 
+import { EnumNovelStatus } from './lib/const';
 import * as mdconf from 'mdconf2';
 import { crlf, LF } from 'crlf-normalize';
 import { array_unique, deepmerge, deepmergeOptions } from './lib';
@@ -10,6 +11,8 @@ import * as isPlainObject from 'is-plain-object';
 import * as sortObjectKeys from 'sort-object-keys2';
 import JsonMd from './json';
 import { envVal, envBool } from 'env-bool';
+import { toHex } from 'hex-lib';
+import { expect } from 'chai';
 
 export { mdconf, array_unique, crlf, LF }
 export { deepmerge, deepmergeOptions }
@@ -17,11 +20,15 @@ export { envVal, envBool }
 
 export type INumber = number | string;
 
-export interface IMdconfMetaOptionsNovelSite
+export interface IMdconfMetaOptionsBase<T = any>
+{
+	[key: string]: T,
+}
+
+export interface IMdconfMetaOptionsNovelSite extends IMdconfMetaOptionsBase
 {
 	novel_id?: INumber,
 	url?: string,
-	[key: string]: any,
 }
 
 export interface IMdconfMeta
@@ -32,6 +39,10 @@ export interface IMdconfMeta
 
 		title_short?: string,
 		title_output?: string,
+		title_other?: string,
+
+		title_zh1?: string,
+		title_zh2?: string,
 
 		title_zh?: string,
 		title_cn?: string,
@@ -61,11 +72,13 @@ export interface IMdconfMeta
 		sources?: string[],
 
 		publisher?: string,
+
+		novel_status?: EnumNovelStatus,
 	}
 
 	contribute?: string[],
 
-	options?: {
+	options?: IMdconfMetaOptionsBase & {
 
 		dmzj?: IMdconfMetaOptionsNovelSite,
 		kakuyomu?: IMdconfMetaOptionsNovelSite,
@@ -75,16 +88,15 @@ export interface IMdconfMeta
 			txtdownload_id: INumber,
 		},
 
-		novel?: {
+		novel?: IMdconfMetaOptionsBase & {
 			pattern?: string,
-			[key: string]: any,
 		},
 
-		textlayout?: {
+		textlayout?: IMdconfMetaOptionsBase & {
 			allow_lf2?: boolean,
-			[key: string]: any,
+			allow_lf3?: boolean,
 		},
-		[key: string]: any,
+
 	},
 
 	link?: string[],
@@ -122,6 +134,13 @@ export function stringify(data, d2?, ...argv): string
 	if (data.novel.preface && typeof data.novel.preface == 'string')
 	{
 		data.novel.preface = new mdconf.RawObject(data.novel.preface, {});
+	}
+
+	if ('novel_status' in data.novel)
+	{
+		expect(data.novel.novel_status).is.type('number').a('number');
+
+		data.novel.novel_status = toHex(data.novel.novel_status, 4);
 	}
 
 	return mdconf.stringify(data) + LF.repeat(2);
@@ -198,14 +217,19 @@ export function sortKeys(ret: IMdconfMeta)
 		'title',
 		'title_short',
 		'title_zh',
+		'title_zh1',
+		'title_zh2',
 		'title_en',
 		'title_jp',
+		'title_output',
+		'title_other',
 		'author',
 		'source',
 		'cover',
 		'publisher',
 		'date',
 		'status',
+		'novel_status',
 		'r18',
 
 		'series',
@@ -311,7 +335,17 @@ export function chkInfo(ret: IMdconfMeta, options: IOptionsParse = {}): IMdconfM
 			{
 				ret.novel[k] = anyToArray(ret.novel[k], true);
 			}
-		})
+		});
+
+		if ('novel_status' in ret.novel)
+		{
+			ret.novel.novel_status = envVal(ret.novel.novel_status);
+
+			if (typeof ret.novel.novel_status === 'string' && /^0x[\da-f]+$/.test(ret.novel.novel_status))
+			{
+				ret.novel.novel_status = Number(ret.novel.novel_status);
+			}
+		}
 	}
 
 	if ('contribute' in ret)

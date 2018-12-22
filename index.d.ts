@@ -1,6 +1,7 @@
 /**
  * Created by user on 2018/1/27/027.
  */
+import { EnumNovelStatus } from './lib/const';
 import * as mdconf from 'mdconf2';
 import { crlf, LF } from 'crlf-normalize';
 import { array_unique, deepmerge, deepmergeOptions } from './lib';
@@ -9,10 +10,12 @@ export { mdconf, array_unique, crlf, LF };
 export { deepmerge, deepmergeOptions };
 export { envVal, envBool };
 export declare type INumber = number | string;
-export interface IMdconfMetaOptionsNovelSite {
+export interface IMdconfMetaOptionsBase<T = any> {
+    [key: string]: T;
+}
+export interface IMdconfMetaOptionsNovelSite extends IMdconfMetaOptionsBase {
     novel_id?: INumber;
     url?: string;
-    [key: string]: any;
 }
 export interface IMdconfMeta {
     novel?: {
@@ -20,6 +23,9 @@ export interface IMdconfMeta {
         title_source?: string;
         title_short?: string;
         title_output?: string;
+        title_other?: string;
+        title_zh1?: string;
+        title_zh2?: string;
         title_zh?: string;
         title_cn?: string;
         title_tw?: string;
@@ -42,9 +48,10 @@ export interface IMdconfMeta {
         source?: string;
         sources?: string[];
         publisher?: string;
+        novel_status?: EnumNovelStatus;
     };
     contribute?: string[];
-    options?: {
+    options?: IMdconfMetaOptionsBase & {
         dmzj?: IMdconfMetaOptionsNovelSite;
         kakuyomu?: IMdconfMetaOptionsNovelSite;
         wenku8?: IMdconfMetaOptionsNovelSite;
@@ -52,15 +59,13 @@ export interface IMdconfMeta {
         syosetu?: IMdconfMetaOptionsNovelSite & {
             txtdownload_id: INumber;
         };
-        novel?: {
+        novel?: IMdconfMetaOptionsBase & {
             pattern?: string;
-            [key: string]: any;
         };
-        textlayout?: {
+        textlayout?: IMdconfMetaOptionsBase & {
             allow_lf2?: boolean;
-            [key: string]: any;
+            allow_lf3?: boolean;
         };
-        [key: string]: any;
     };
     link?: string[];
 }
