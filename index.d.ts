@@ -86,6 +86,7 @@ export declare function parse(data: {
 export declare function parse(data: string, options?: IOptionsParse): IMdconfMeta;
 export declare function sortKeys(ret: IMdconfMeta): IMdconfMeta;
 export declare function chkInfo(ret: IMdconfMeta, options?: IOptionsParse): IMdconfMeta;
+export declare function getNovelTitleFromMeta(meta: IMdconfMeta): string[];
 export declare const version: string;
 import * as self from './index';
 export import mdconf_parse = self.parse;

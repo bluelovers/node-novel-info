@@ -372,6 +372,48 @@ export function chkInfo(ret: IMdconfMeta, options: IOptionsParse = {}): IMdconfM
 	return ret;
 }
 
+export function getNovelTitleFromMeta(meta: IMdconfMeta): string[]
+{
+	if (meta && meta.novel)
+	{
+		let arr = [
+				'title',
+				'title_source',
+				'title_jp',
+				'title_ja',
+				'title_zh',
+				'title_tw',
+				'title_cn',
+			].concat(Object.keys(meta.novel))
+			.reduce(function (a, key: string)
+			{
+				if (key.indexOf('title') === 0)
+				{
+					a.push(meta.novel[key])
+				}
+
+				return a
+			}, [])
+		;
+
+		if (meta.novel.series)
+		{
+			arr.push(meta.novel.series.name);
+			arr.push(meta.novel.series.name_short);
+		}
+
+		arr = array_unique(arr.filter(v => v && ![
+			'undefined',
+			'長編 【連載】',
+			'連載中',
+		].includes(v)));
+
+		return arr;
+	}
+
+	return [];
+}
+
 function anyToArray<T = string>(input: T | T[], unique?: boolean): T[]
 {
 	if (typeof input != 'object')
