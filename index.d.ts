@@ -78,7 +78,7 @@ export interface IMdconfMeta {
     };
     link?: string[];
 }
-export interface IOptionsParse extends mdconf.IOptionsParse {
+export declare type IOptionsParse = mdconf.IOptionsParse & {
     chk?: boolean;
     throw?: boolean;
     removeRawData?: boolean;
@@ -86,7 +86,7 @@ export interface IOptionsParse extends mdconf.IOptionsParse {
      * 允許殘缺不合法的 meta info
      */
     lowCheckLevel?: boolean;
-}
+};
 export declare const defaultOptionsParse: IOptionsParse;
 export declare function stringify(data: any, d2?: any, ...argv: any[]): string;
 export declare function parse(data: {

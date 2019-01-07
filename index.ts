@@ -112,8 +112,7 @@ export interface IMdconfMeta
 	link?: string[],
 }
 
-export interface IOptionsParse extends mdconf.IOptionsParse
-{
+export type IOptionsParse = mdconf.IOptionsParse & {
 	chk?: boolean,
 	throw?: boolean,
 
@@ -127,6 +126,7 @@ export interface IOptionsParse extends mdconf.IOptionsParse
 
 export const defaultOptionsParse: IOptionsParse = {
 	removeRawData: true,
+	disableKeyToLowerCase: true,
 };
 
 export function stringify(data, d2?, ...argv): string
@@ -165,6 +165,11 @@ export function parse(data, options: IOptionsParse = {}): IMdconfMeta
 	if (options.removeRawData)
 	{
 		options.oldParseApi = options.removeRawData;
+	}
+
+	if (options.disableKeyToLowerCase == null)
+	{
+		options.disableKeyToLowerCase = true;
 	}
 
 	let ret = mdconf.parse(crlf(data.toString()), options) as IMdconfMeta;
