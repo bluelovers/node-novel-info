@@ -66,6 +66,15 @@ export interface IMdconfMeta {
             allow_lf2?: boolean;
             allow_lf3?: boolean;
         };
+        /**
+         * novel-downloader
+         */
+        downloadOptions?: IMdconfMetaOptionsBase & {
+            noFirePrefix?: boolean;
+            noFilePadend?: boolean;
+            filePrefixMode?: number;
+            startIndex?: number;
+        };
     };
     link?: string[];
 }

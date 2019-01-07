@@ -97,6 +97,16 @@ export interface IMdconfMeta
 			allow_lf3?: boolean,
 		},
 
+		/**
+		 * novel-downloader
+		 */
+		downloadOptions?: IMdconfMetaOptionsBase & {
+			noFirePrefix?: boolean,
+			noFilePadend?: boolean,
+			filePrefixMode?: number,
+			startIndex?: number,
+		},
+
 	},
 
 	link?: string[],
@@ -362,10 +372,10 @@ export function chkInfo(ret: IMdconfMeta, options: IOptionsParse = {}): IMdconfM
 		;
 	}
 
-	if (typeof ret.options.downloadoptions === 'object')
+	if (typeof ret.options.downloadOptions === 'object')
 	{
-		Object.entries(ret.options.downloadoptions)
-			.forEach(([k, v]) => ret.options.downloadoptions[k] = envVal(v))
+		Object.entries(ret.options.downloadOptions)
+			.forEach(([k, v]) => ret.options.downloadOptions[k] = envVal(v))
 		;
 	}
 

@@ -6,7 +6,7 @@ import novelInfo from '..';
 // @ts-ignore
 import * as fs from 'fs-extra';
 
-fs.readFile('./res/README.md')
+fs.readFile('./res/README2.md')
 	.then(function (buf)
 	{
 		return novelInfo.parse(buf, {
