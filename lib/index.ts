@@ -3,7 +3,7 @@
  */
 
 import deepmerge = require('deepmerge-plus');
-import * as deepmergeNS from 'deepmerge-plus/core';
+import deepmergeNS from 'deepmerge-plus/core';
 import moment = require('moment');
 import mdconf = require('mdconf2');
 import { URL } from 'jsdom-url';
@@ -28,6 +28,4 @@ export const deepmergeOptions: deepmergeNS.Options = {
 	}
 };
 
-import * as self from './index';
-export default self;
-//export default exports;
+export default exports as typeof import('./index');

@@ -447,8 +447,6 @@ function anyToArray<T = string>(input: T | T[], unique?: boolean): T[]
 
 export const version: string = require("./package.json").version;
 
-import * as self from './index';
+export const mdconf_parse = parse;
 
-export import mdconf_parse = self.parse;
-
-export default self;
+export default exports as typeof import('./index');
