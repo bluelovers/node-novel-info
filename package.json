@@ -1,6 +1,6 @@
 {
   "name": "node-novel-info",
-  "version": "2.3.18",
+  "version": "2.3.19",
   "description": "mdconf module for node-novel",
   "keywords": [
     "config",
@@ -42,7 +42,7 @@
     "hex-lib": "^1.0.2",
     "is-plain-object": "^2.0.4",
     "jsdom-url": "^2.2.0",
-    "mdconf2": "^1.1.9",
+    "mdconf2": "^1.1.10",
     "moment": "^2.23.0",
     "sort-object-keys2": "^1.1.0"
   },
