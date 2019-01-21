@@ -35,10 +35,22 @@ export interface IMdconfMeta
 {
 	novel?: {
 		title?: string,
+
+		/**
+		 * 原始標題
+		 */
 		title_source?: string,
 
+		/**
+		 * 簡短標題
+		 * 如果 title_output 不存在 這個則會作為輸出 epub 的檔名備選之一
+		 */
 		title_short?: string,
+		/**
+		 * 輸出 epub 的檔名
+		 */
 		title_output?: string,
+
 		title_other?: string,
 
 		title_zh1?: string,
@@ -53,9 +65,19 @@ export interface IMdconfMeta
 		author?: string,
 		authors?: string[],
 
+		/**
+		 * 封面圖
+		 */
 		cover?: string,
-		illust?: string[],
+		/**
+		 * 繪師
+		 */
+		illust?: string,
+		illusts?: string[],
 
+		/**
+		 * 簡介
+		 */
 		preface?: string,
 		tags?: string[],
 		date?: string,
@@ -73,9 +95,15 @@ export interface IMdconfMeta
 
 		publisher?: string,
 
-		novel_status?: EnumNovelStatus,
+		/**
+		 * 小說狀態 flag
+		 */
+		novel_status?: EnumNovelStatus | number,
 	}
 
+	/**
+	 * 翻譯 校對 整合 ...等 貢獻者 或 其他
+	 */
 	contribute?: string[],
 
 	options?: IMdconfMetaOptionsBase & {
@@ -156,11 +184,11 @@ export function stringify(data, d2?, ...argv): string
 	return mdconf.stringify(data) + LF.repeat(2);
 }
 
-export function parse(data: {
+export function parse<T = IMdconfMeta>(data: {
 	toString(): string,
-}, options?: IOptionsParse): IMdconfMeta
-export function parse(data: string, options?: IOptionsParse): IMdconfMeta
-export function parse(data, options: IOptionsParse = {}): IMdconfMeta
+}, options?: IOptionsParse): T
+export function parse<T = IMdconfMeta>(data: string, options?: IOptionsParse): T
+export function parse<T extends IMdconfMeta>(data, options: IOptionsParse = {}): T
 {
 	if (options.removeRawData)
 	{
@@ -217,6 +245,7 @@ export function parse(data, options: IOptionsParse = {}): IMdconfMeta
 		//console.log(777);
 	}
 
+	// @ts-ignore
 	return ret;
 }
 
@@ -342,7 +371,7 @@ export function chkInfo(ret: IMdconfMeta, options: IOptionsParse = {}): IMdconfM
 	{
 		[
 			'authors',
-			'illust',
+			'illusts',
 			'tags',
 			'sources',
 		].forEach(k => {

@@ -20,8 +20,18 @@ export interface IMdconfMetaOptionsNovelSite extends IMdconfMetaOptionsBase {
 export interface IMdconfMeta {
     novel?: {
         title?: string;
+        /**
+         * 原始標題
+         */
         title_source?: string;
+        /**
+         * 簡短標題
+         * 如果 title_output 不存在 這個則會作為輸出 epub 的檔名備選之一
+         */
         title_short?: string;
+        /**
+         * 輸出 epub 的檔名
+         */
         title_output?: string;
         title_other?: string;
         title_zh1?: string;
@@ -33,8 +43,18 @@ export interface IMdconfMeta {
         title_jp?: string;
         author?: string;
         authors?: string[];
+        /**
+         * 封面圖
+         */
         cover?: string;
-        illust?: string[];
+        /**
+         * 繪師
+         */
+        illust?: string;
+        illusts?: string[];
+        /**
+         * 簡介
+         */
         preface?: string;
         tags?: string[];
         date?: string;
@@ -48,8 +68,14 @@ export interface IMdconfMeta {
         source?: string;
         sources?: string[];
         publisher?: string;
-        novel_status?: EnumNovelStatus;
+        /**
+         * 小說狀態 flag
+         */
+        novel_status?: EnumNovelStatus | number;
     };
+    /**
+     * 翻譯 校對 整合 ...等 貢獻者 或 其他
+     */
     contribute?: string[];
     options?: IMdconfMetaOptionsBase & {
         dmzj?: IMdconfMetaOptionsNovelSite;
@@ -89,10 +115,10 @@ export declare type IOptionsParse = mdconf.IOptionsParse & {
 };
 export declare const defaultOptionsParse: IOptionsParse;
 export declare function stringify(data: any, d2?: any, ...argv: any[]): string;
-export declare function parse(data: {
+export declare function parse<T = IMdconfMeta>(data: {
     toString(): string;
-}, options?: IOptionsParse): IMdconfMeta;
-export declare function parse(data: string, options?: IOptionsParse): IMdconfMeta;
+}, options?: IOptionsParse): T;
+export declare function parse<T = IMdconfMeta>(data: string, options?: IOptionsParse): T;
 export declare function sortKeys(ret: IMdconfMeta): IMdconfMeta;
 export declare function chkInfo(ret: IMdconfMeta, options?: IOptionsParse): IMdconfMeta;
 export declare function getNovelTitleFromMeta(meta: IMdconfMeta): string[];
