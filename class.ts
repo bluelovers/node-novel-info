@@ -137,8 +137,15 @@ export class NodeNovelInfo<T extends IMdconfMeta>
 		}
 	}
 
-	toJSON(): T
+	toJSON<R>(clone?: boolean): R
+	toJSON(clone?: boolean): T
+	toJSON(clone?: boolean): T
 	{
+		if (clone)
+		{
+			return cloneDeep(this.raw);
+		}
+
 		// @ts-ignore
 		return this.raw;
 	}

@@ -26,7 +26,8 @@ export declare class NodeNovelInfo<T extends IMdconfMeta> {
         data: IMdconfMetaOptionsNovelSite;
     }[];
     status(): EnumNovelStatus | number;
-    toJSON(): T;
+    toJSON<R>(clone?: boolean): R;
+    toJSON(clone?: boolean): T;
     stringify(): string;
     static parse: typeof parse;
     static stringify: typeof stringify;
