@@ -21,5 +21,29 @@ export declare enum EnumNovelStatus {
     /**
      * 本書已完結 並且處理完畢
      */
-    USER_DONE = 16
+    USER_DONE = 16,
+    /**
+     * 搬運棄坑
+     */
+    USER_NOUPDATE = 32,
+    /**
+     * 搬運完結 但未整理
+     */
+    USER_TODO = 64,
+    /**
+     * 文庫化
+     */
+    P_BOOK = 256,
+    /**
+     * 漫畫化
+     */
+    P_COMIC = 512,
+    /**
+     * 動畫化
+     */
+    P_ANIME = 1024,
+    /**
+     * 遊戲化
+     */
+    P_GAME = 2048
 }

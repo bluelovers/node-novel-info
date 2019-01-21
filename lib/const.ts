@@ -26,4 +26,32 @@ export enum EnumNovelStatus
 	 * 本書已完結 並且處理完畢
 	 */
 	USER_DONE = 0x0010,
+
+	/**
+	 * 搬運棄坑
+	 */
+	USER_NOUPDATE = 0x0020,
+
+	/**
+	 * 搬運完結 但未整理
+	 */
+	USER_TODO = 0x0040,
+
+	/**
+	 * 文庫化
+	 */
+	P_BOOK = 0x0100,
+	/**
+	 * 漫畫化
+	 */
+	P_COMIC = 0x0200,
+	/**
+	 * 動畫化
+	 */
+	P_ANIME = 0x0400,
+	/**
+	 * 遊戲化
+	 */
+	P_GAME = 0x0800,
+
 }
