@@ -68,6 +68,7 @@ export interface IMdconfMeta {
         source?: string;
         sources?: string[];
         publisher?: string;
+        publishers?: string[];
         /**
          * 小說狀態 flag
          */

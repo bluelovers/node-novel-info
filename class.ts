@@ -109,6 +109,13 @@ export class NodeNovelInfo<T extends IMdconfMeta>
 		return arr_filter(this.raw.contribute || [])
 	}
 
+	publishers(): string[]
+	{
+		return arr_filter([
+			this.raw.novel && this.raw.novel.publisher,
+		].concat(this.raw.novel.publishers || []))
+	}
+
 	sites()
 	{
 		return arr_filter(Object.entries(this.raw.options || {})

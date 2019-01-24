@@ -94,6 +94,7 @@ export interface IMdconfMeta
 		sources?: string[],
 
 		publisher?: string,
+		publishers?: string[],
 
 		/**
 		 * 小說狀態 flag
@@ -374,6 +375,7 @@ export function chkInfo(ret: IMdconfMeta, options: IOptionsParse = {}): IMdconfM
 			'illusts',
 			'tags',
 			'sources',
+			'publishers',
 		].forEach(k => {
 			if (k in ret.novel)
 			{

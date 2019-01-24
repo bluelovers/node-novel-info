@@ -21,6 +21,7 @@ export declare class NodeNovelInfo<T extends IMdconfMeta> {
     illusts(): string[];
     tags(): string[];
     contributes(): string[];
+    publishers(): string[];
     sites(): {
         site: string;
         data: IMdconfMetaOptionsNovelSite;

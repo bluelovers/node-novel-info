@@ -1,6 +1,6 @@
 {
   "name": "node-novel-info",
-  "version": "2.3.21",
+  "version": "2.3.22",
   "description": "mdconf module for node-novel",
   "keywords": [
     "config",
