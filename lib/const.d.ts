@@ -19,6 +19,10 @@ export declare enum EnumNovelStatus {
      */
     AUTHOR_DELETE = 4,
     /**
+     * 作者已過世
+     */
+    AUTHOR_DEAD = 8,
+    /**
      * 本書已完結 並且處理完畢
      */
     USER_DONE = 16,
@@ -43,7 +47,23 @@ export declare enum EnumNovelStatus {
      */
     P_ANIME = 1024,
     /**
-     * 遊戲化
+     * 遊戲
      */
-    P_GAME = 2048
+    P_GAME = 2048,
+    /**
+     * 數位/電子書
+     */
+    P_DIGITAL = 4096,
+    /**
+     * 電影
+     */
+    P_MOVIE = 8192,
+    /**
+     * 真人/舞台
+     */
+    P_REAL = 16384,
+    /**
+     * 自印/同人
+     */
+    P_PRINT = 32768
 }

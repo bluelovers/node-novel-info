@@ -163,5 +163,11 @@ export default NodeNovelInfo
 
 function arr_filter<T>(arr: T[])
 {
-	return array_unique(arr).filter(v => v != null);
+	return array_unique(arr).filter(v => {
+		return v != null
+			// @ts-ignore
+			&& v != 'null'
+			// @ts-ignore
+			&& v != 'undefined'
+	});
 }

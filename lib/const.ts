@@ -21,6 +21,10 @@ export enum EnumNovelStatus
 	 * 作者已刪除
 	 */
 	AUTHOR_DELETE = 0x00004,
+	/**
+	 * 作者已過世
+	 */
+	AUTHOR_DEAD = 0x00008,
 
 	/**
 	 * 本書已完結 並且處理完畢
@@ -50,8 +54,28 @@ export enum EnumNovelStatus
 	 */
 	P_ANIME = 0x0400,
 	/**
-	 * 遊戲化
+	 * 遊戲
 	 */
 	P_GAME = 0x0800,
+
+	/**
+	 * 數位/電子書
+	 */
+	P_DIGITAL = 0x1000,
+
+	/**
+	 * 電影
+	 */
+	P_MOVIE = 0x2000,
+
+	/**
+	 * 真人/舞台
+	 */
+	P_REAL = 0x4000,
+
+	/**
+	 * 自印/同人
+	 */
+	P_PRINT = 0x8000,
 
 }
