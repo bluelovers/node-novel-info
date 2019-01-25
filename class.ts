@@ -171,7 +171,7 @@ export default NodeNovelInfo
 function arr_filter<T>(arr: T[])
 {
 	return array_unique(arr).filter(v => {
-		return v != null
+		return v && v != null
 			// @ts-ignore
 			&& v != 'null'
 			// @ts-ignore
