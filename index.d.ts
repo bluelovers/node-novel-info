@@ -2,7 +2,7 @@
  * Created by user on 2018/1/27/027.
  */
 import { EnumNovelStatus } from './lib/const';
-import * as mdconf from 'mdconf2';
+import mdconf = require('mdconf2');
 import { crlf, LF } from 'crlf-normalize';
 import { array_unique, deepmerge, deepmergeOptions } from './lib';
 import { envVal, envBool } from 'env-bool';
@@ -120,7 +120,9 @@ export declare function parse<T = IMdconfMeta>(data: {
     toString(): string;
 }, options?: IOptionsParse): T;
 export declare function parse<T = IMdconfMeta>(data: string, options?: IOptionsParse): T;
-export declare function sortKeys(ret: IMdconfMeta): IMdconfMeta;
+export declare function _handleData<T extends IMdconfMeta>(data: any, d2?: any, ...argv: any[]): T;
+export declare function _handleDataForStringify<T extends IMdconfMeta>(data: any, d2?: any, ...argv: any[]): T;
+export declare function sortKeys<T extends IMdconfMeta>(ret: T): T;
 export declare function chkInfo(ret: IMdconfMeta, options?: IOptionsParse): IMdconfMeta;
 export declare function getNovelTitleFromMeta(meta: IMdconfMeta): string[];
 export declare const version: string;

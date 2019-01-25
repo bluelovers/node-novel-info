@@ -3,12 +3,12 @@
  */
 
 import { EnumNovelStatus } from './lib/const';
-import * as mdconf from 'mdconf2';
+import mdconf = require('mdconf2');
 import { crlf, LF } from 'crlf-normalize';
 import { array_unique, deepmerge, deepmergeOptions } from './lib';
-import * as moment from 'moment';
-import * as isPlainObject from 'is-plain-object';
-import * as sortObjectKeys from 'sort-object-keys2';
+import moment = require('moment');
+import isPlainObject = require('is-plain-object');
+import sortObjectKeys = require('sort-object-keys2');
 import JsonMd from './json';
 import { envVal, envBool } from 'env-bool';
 import { toHex } from 'hex-lib';
@@ -160,27 +160,7 @@ export const defaultOptionsParse: IOptionsParse = {
 
 export function stringify(data, d2?, ...argv): string
 {
-	data = JsonMd.toNovelInfo(data, d2 || {}, {
-		novel: {
-			tags: [],
-		},
-	}, ...argv);
-
-	data = sortKeys(data);
-	data.novel.tags.unshift('node-novel');
-	data.novel.tags = array_unique(data.novel.tags);
-
-	if (data.novel.preface && typeof data.novel.preface == 'string')
-	{
-		data.novel.preface = new mdconf.RawObject(data.novel.preface, {});
-	}
-
-	if ('novel_status' in data.novel)
-	{
-		expect(data.novel.novel_status).a('number');
-
-		data.novel.novel_status = toHex(data.novel.novel_status, 4);
-	}
+	data = _handleDataForStringify(data, d2, ...argv);
 
 	return mdconf.stringify(data) + LF.repeat(2);
 }
@@ -250,8 +230,46 @@ export function parse<T extends IMdconfMeta>(data, options: IOptionsParse = {}):
 	return ret;
 }
 
-export function sortKeys(ret: IMdconfMeta)
+export function _handleData<T extends IMdconfMeta>(data, d2?, ...argv): T
 {
+	// @ts-ignore
+	data = JsonMd.toNovelInfo(data, d2 || {}, {
+		novel: {
+			tags: [],
+		},
+	}, ...argv);
+
+	data = sortKeys(data);
+	data.novel.tags.unshift('node-novel');
+	data.novel.tags = array_unique(data.novel.tags);
+
+	// @ts-ignore
+	return data;
+}
+
+export function _handleDataForStringify<T extends IMdconfMeta>(data, d2?, ...argv): T
+{
+	data = _handleData(data, d2, ...argv);
+
+	if (data.novel.preface && typeof data.novel.preface == 'string')
+	{
+		data.novel.preface = new mdconf.RawObject(data.novel.preface, {});
+	}
+
+	if ('novel_status' in data.novel)
+	{
+		expect(data.novel.novel_status).a('number');
+
+		data.novel.novel_status = toHex(data.novel.novel_status, 4);
+	}
+
+	// @ts-ignore
+	return data;
+}
+
+export function sortKeys<T extends IMdconfMeta>(ret: T)
+{
+	// @ts-ignore
 	ret = sortObjectKeys(ret, [
 		'novel',
 		'contribute',
@@ -358,6 +376,7 @@ export function sortKeys(ret: IMdconfMeta)
 		}
 	}
 
+	// @ts-ignore
 	return ret;
 }
 
