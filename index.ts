@@ -185,7 +185,7 @@ export function parse<T extends IMdconfMeta>(data, options: IOptionsParse = {}):
 
 	try
 	{
-		if (ret.novel.preface)
+		if (ret.novel && ret.novel.preface)
 		{
 			ret.novel.preface = (ret.novel.preface
 				&& ret.novel.preface.length
