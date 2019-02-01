@@ -1,6 +1,6 @@
 {
   "name": "node-novel-info",
-  "version": "2.3.25",
+  "version": "2.3.26",
   "description": "mdconf module for node-novel",
   "keywords": [
     "config",
@@ -43,7 +43,7 @@
     "env-bool": "^1.0.3",
     "hex-lib": "^1.0.2",
     "is-plain-object": "^2.0.4",
-    "jsdom-url": "^2.2.0",
+    "jsdom-url": "^2.2.1",
     "lodash": "^4.17.11",
     "mdconf2": "^1.1.10",
     "moment": "^2.24.0",
@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "lodash-decorators": "^6.0.1",
-    "@bluelovers/tsconfig": "^1.0.0",
+    "@bluelovers/tsconfig": "^1.0.1",
     "fs-extra": "^7"
   }
 }

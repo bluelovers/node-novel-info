@@ -193,11 +193,14 @@ export function parse<T extends IMdconfMeta>(data, options: IOptionsParse = {}):
 			;
 		}
 
-		ret.options = deepmerge(ret.options || {}, {
+		if (!options.lowCheckLevel || ret.options)
+		{
+			ret.options = deepmerge(ret.options || {}, {
 
-			textlayout: {},
+				textlayout: {},
 
-		}, deepmergeOptions);
+			}, deepmergeOptions);
+		}
 	}
 	catch (e)
 	{
