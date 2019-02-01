@@ -423,20 +423,26 @@ export function chkInfo(ret: IMdconfMeta, options: IOptionsParse = {}): IMdconfM
 		ret.contribute = anyToArray(ret.contribute, true);
 	}
 
-	ret.options = ret.options || {};
-
-	if (typeof ret.options.textlayout === 'object')
+	if (!options.lowCheckLevel)
 	{
-		Object.entries(ret.options.textlayout)
-			.forEach(([k, v]) => ret.options.textlayout[k] = envVal(v))
-		;
+		ret.options = ret.options || {};
 	}
 
-	if (typeof ret.options.downloadOptions === 'object')
+	if (ret.options)
 	{
-		Object.entries(ret.options.downloadOptions)
-			.forEach(([k, v]) => ret.options.downloadOptions[k] = envVal(v))
-		;
+		if (typeof ret.options.textlayout === 'object')
+		{
+			Object.entries(ret.options.textlayout)
+				.forEach(([k, v]) => ret.options.textlayout[k] = envVal(v))
+			;
+		}
+
+		if (typeof ret.options.downloadOptions === 'object')
+		{
+			Object.entries(ret.options.downloadOptions)
+				.forEach(([k, v]) => ret.options.downloadOptions[k] = envVal(v))
+			;
+		}
 	}
 
 	return ret;
