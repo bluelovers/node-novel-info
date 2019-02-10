@@ -17,13 +17,9 @@ import moment = require('moment');
 import cloneDeep = require('lodash/cloneDeep');
 import { toHex } from 'hex-lib';
 
-export type INodeNovelInfoOptions = IOptionsParse & {
+export type INodeNovelInfoOptions = IOptionsParse & {};
 
-};
-
-const defaultOptions: Readonly<INodeNovelInfoOptions> = Object.freeze({
-
-});
+const defaultOptions: Readonly<INodeNovelInfoOptions> = Object.freeze({});
 
 export class NodeNovelInfo<T extends IMdconfMeta>
 {
@@ -80,11 +76,30 @@ export class NodeNovelInfo<T extends IMdconfMeta>
 		return this.create(json, options, ...argv);
 	}
 
+	/**
+	 * 取得所有小說標題
+	 */
 	titles(): string[]
 	{
 		return getNovelTitleFromMeta(this.raw)
+			.filter(cb_title_filter)
 	}
 
+	/**
+	 * 取得系列名稱
+	 */
+	series_titles(): string[]
+	{
+		return arr_filter([
+			this.raw.novel && this.raw.novel.series && this.raw.novel.series.name,
+			this.raw.novel && this.raw.novel.series && this.raw.novel.series.name_short,
+		].concat([]))
+			.filter(cb_title_filter)
+	}
+
+	/**
+	 * 取得作者列表
+	 */
 	authors(): string[]
 	{
 		return arr_filter([
@@ -92,6 +107,9 @@ export class NodeNovelInfo<T extends IMdconfMeta>
 		].concat(this.raw.novel.authors || []))
 	}
 
+	/**
+	 * 取得繪師列表
+	 */
 	illusts(): string[]
 	{
 		return arr_filter([
@@ -99,16 +117,25 @@ export class NodeNovelInfo<T extends IMdconfMeta>
 		].concat(this.raw.novel.illusts || []))
 	}
 
+	/**
+	 * 取得標籤列表
+	 */
 	tags(): string[]
 	{
 		return arr_filter(this.raw.novel && this.raw.novel.tags || [])
 	}
 
+	/**
+	 * 取得貢獻者/翻譯者列表
+	 */
 	contributes(): string[]
 	{
 		return arr_filter(this.raw.contribute || [])
 	}
 
+	/**
+	 * 取得發布網站或者出版社列表
+	 */
 	publishers(): string[]
 	{
 		return arr_filter([
@@ -170,11 +197,22 @@ export default NodeNovelInfo
 
 function arr_filter<T>(arr: T[])
 {
-	return array_unique(arr).filter(v => {
+	return array_unique(arr).filter(v =>
+	{
 		return v && v != null
 			// @ts-ignore
 			&& v != 'null'
 			// @ts-ignore
 			&& v != 'undefined'
 	});
+}
+
+function cb_title_filter(v: string)
+{
+	return v && ![
+		'連載中',
+		'長編 【連載】',
+		'undefined',
+		'null',
+	].includes(v)
 }

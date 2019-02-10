@@ -16,11 +16,33 @@ export declare class NodeNovelInfo<T extends IMdconfMeta> {
     };
     static create<T extends IMdconfMeta>(mdconf: T, options?: INodeNovelInfoOptions, ...argv: any[]): NodeNovelInfo<T>;
     static createFromString(input: string | Buffer, options: INodeNovelInfoOptions, ...argv: any[]): NodeNovelInfo<IMdconfMeta>;
+    /**
+     * 取得所有小說標題
+     */
     titles(): string[];
+    /**
+     * 取得系列名稱
+     */
+    series_titles(): string[];
+    /**
+     * 取得作者列表
+     */
     authors(): string[];
+    /**
+     * 取得繪師列表
+     */
     illusts(): string[];
+    /**
+     * 取得標籤列表
+     */
     tags(): string[];
+    /**
+     * 取得貢獻者/翻譯者列表
+     */
     contributes(): string[];
+    /**
+     * 取得發布網站或者出版社列表
+     */
     publishers(): string[];
     sites(): {
         site: string;
