@@ -94,6 +94,7 @@ export class NodeNovelInfo<T extends IMdconfMeta>
 			novel.title_ja,
 			novel.title_cn,
 			...titles,
+			novel.title,
 		];
 
 		for (let v of arr)
