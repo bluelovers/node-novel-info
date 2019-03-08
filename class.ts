@@ -62,7 +62,7 @@ export class NodeNovelInfo<T extends IMdconfMeta>
 	}
 
 	@bind
-	static createFromString(input: string | Buffer, options: INodeNovelInfoOptions, ...argv)
+	static createFromString(input: string | Buffer, options?: INodeNovelInfoOptions, ...argv)
 	{
 		if (typeof input != 'string')
 		{
@@ -74,6 +74,37 @@ export class NodeNovelInfo<T extends IMdconfMeta>
 		let json = parse(input, options);
 
 		return this.create(json, options, ...argv);
+	}
+
+	/**
+	 * 取得小說標題
+	 */
+	title(...titles: string[]): string
+	{
+		let novel = this.raw.novel;
+
+		let arr = [
+			novel.title_output,
+			novel.title_zh,
+			novel.title_short,
+			novel.title_tw,
+			novel.title_source,
+			novel.title_jp,
+			// @ts-ignore
+			novel.title_ja,
+			novel.title_cn,
+			...titles,
+		];
+
+		for (let v of arr)
+		{
+			if (cb_title_filter(v))
+			{
+				return v;
+			}
+		}
+
+		return this.titles()[0]
 	}
 
 	/**
@@ -112,9 +143,40 @@ export class NodeNovelInfo<T extends IMdconfMeta>
 	 */
 	illusts(): string[]
 	{
-		return arr_filter([
-			this.raw.novel && this.raw.novel.illust,
-		].concat(this.raw.novel.illusts || []))
+		let novel = this.raw.novel;
+
+		let arr = arr_filter([
+			'illust',
+			'illusts',
+		]
+			.concat(Object.keys(novel))
+			.reduce(function (a, key: string)
+			{
+				if (key.indexOf('illust') === 0)
+				{
+					a.push(key)
+				}
+
+				return a
+			}, [] as string[]))
+			.reduce(function (a: string[], key: string)
+			{
+				let v = novel[key];
+
+				if (Array.isArray(v))
+				{
+					a.push(...v)
+				}
+				else
+				{
+					a.push(v)
+				}
+
+				return a
+			}, []) as string[]
+		;
+
+		return arr_filter(arr).filter(cb_title_filter)
 	}
 
 	/**
@@ -209,10 +271,11 @@ function arr_filter<T>(arr: T[])
 
 function cb_title_filter(v: string)
 {
-	return v && ![
+	return typeof v === 'string' && v && ![
 		'連載中',
 		'長編 【連載】',
 		'undefined',
 		'null',
-	].includes(v)
+		'',
+	].includes(v.trim())
 }

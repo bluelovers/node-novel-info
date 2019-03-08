@@ -15,7 +15,11 @@ export declare class NodeNovelInfo<T extends IMdconfMeta> {
         lowCheckLevel?: boolean;
     };
     static create<T extends IMdconfMeta>(mdconf: T, options?: INodeNovelInfoOptions, ...argv: any[]): NodeNovelInfo<T>;
-    static createFromString(input: string | Buffer, options: INodeNovelInfoOptions, ...argv: any[]): NodeNovelInfo<IMdconfMeta>;
+    static createFromString(input: string | Buffer, options?: INodeNovelInfoOptions, ...argv: any[]): NodeNovelInfo<IMdconfMeta>;
+    /**
+     * 取得小說標題
+     */
+    title(...titles: string[]): string;
     /**
      * 取得所有小說標題
      */
