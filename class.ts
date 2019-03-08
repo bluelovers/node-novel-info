@@ -88,13 +88,16 @@ export class NodeNovelInfo<T extends IMdconfMeta>
 			novel.title_zh,
 			novel.title_short,
 			novel.title_tw,
+
+			...titles,
+			novel.title,
+
 			novel.title_source,
+
 			novel.title_jp,
 			// @ts-ignore
 			novel.title_ja,
 			novel.title_cn,
-			...titles,
-			novel.title,
 		];
 
 		for (let v of arr)
