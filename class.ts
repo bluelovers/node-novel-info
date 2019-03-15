@@ -25,6 +25,9 @@ export class NodeNovelInfo<T extends IMdconfMeta>
 {
 	raw: T;
 
+	pathMain?: string;
+	novelID?: string;
+
 	constructor(mdconf: T, options: INodeNovelInfoOptions = defaultOptions, ...argv)
 	{
 		options = NodeNovelInfo.fixOptions(options);
@@ -74,6 +77,35 @@ export class NodeNovelInfo<T extends IMdconfMeta>
 		let json = parse(input, options);
 
 		return this.create(json, options, ...argv);
+	}
+
+	protected _pathMain_base()
+	{
+		let is_out: boolean = null;
+		let pathMain_base: string = undefined;
+
+		if (this.pathMain != null)
+		{
+			let _m = this.pathMain.match(/^(.+?)(_out)?$/);
+
+			is_out = !!_m[2];
+			pathMain_base = _m[1];
+		}
+
+		return {
+			is_out,
+			pathMain_base,
+		}
+	}
+
+	get is_out()
+	{
+		return this._pathMain_base().is_out;
+	}
+
+	get pathMain_base()
+	{
+		return this._pathMain_base().pathMain_base;
 	}
 
 	/**

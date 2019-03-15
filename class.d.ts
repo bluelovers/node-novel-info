@@ -7,6 +7,8 @@ import { EnumNovelStatus } from './lib/const';
 export declare type INodeNovelInfoOptions = IOptionsParse & {};
 export declare class NodeNovelInfo<T extends IMdconfMeta> {
     raw: T;
+    pathMain?: string;
+    novelID?: string;
     constructor(mdconf: T, options?: INodeNovelInfoOptions, ...argv: any[]);
     static fixOptions(options?: INodeNovelInfoOptions): Readonly<IOptionsParse> & import("mdconf2").IOptionsParse & {
         chk?: boolean;
@@ -16,6 +18,12 @@ export declare class NodeNovelInfo<T extends IMdconfMeta> {
     };
     static create<T extends IMdconfMeta>(mdconf: T, options?: INodeNovelInfoOptions, ...argv: any[]): NodeNovelInfo<T>;
     static createFromString(input: string | Buffer, options?: INodeNovelInfoOptions, ...argv: any[]): NodeNovelInfo<IMdconfMeta>;
+    protected _pathMain_base(): {
+        is_out: boolean;
+        pathMain_base: string;
+    };
+    readonly is_out: boolean;
+    readonly pathMain_base: string;
     /**
      * 取得小說標題
      */
