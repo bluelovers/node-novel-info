@@ -1,6 +1,6 @@
 {
   "name": "node-novel-info",
-  "version": "2.3.32",
+  "version": "2.3.33",
   "description": "mdconf module for node-novel",
   "keywords": [
     "config",
@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "lodash-decorators": "^6.0.1",
-    "@bluelovers/tsconfig": "^1.0.1",
+    "@bluelovers/tsconfig": "^1.0.2",
     "fs-extra": "^7"
   }
 }

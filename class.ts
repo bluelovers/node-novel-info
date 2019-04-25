@@ -11,7 +11,7 @@ import {
 	stringify,
 } from './index';
 import bind from 'bind-decorator';
-import { array_unique, deepmerge, deepmergeOptions } from './lib';
+import { array_unique, deepmerge, deepmergeOptions, filterByPrefix, filterByPrefixReturnValues } from './lib';
 import { EnumNovelStatus } from './lib/const';
 import moment = require('moment');
 import cloneDeep = require('lodash/cloneDeep');
@@ -232,7 +232,7 @@ export class NodeNovelInfo<T extends IMdconfMeta>
 	}
 
 	/**
-	 * 取得發布網站或者出版社列表
+	 * 取得發布網站名稱或者出版社名稱列表
 	 */
 	publishers(): string[]
 	{
@@ -241,6 +241,18 @@ export class NodeNovelInfo<T extends IMdconfMeta>
 		].concat(this.raw.novel.publishers || []))
 	}
 
+	/**
+	 * 取得發布或者來源網址
+	 */
+	sources()
+	{
+		return arr_filter(filterByPrefixReturnValues<string>(/^source(?:_.+)?$/, this.raw.novel)
+			.concat(this.raw.novel.sources || []))
+	}
+
+	/**
+	 * 小說來源的網站資料(請查閱 novel-downloader)
+	 */
 	sites()
 	{
 		return arr_filter(Object.entries(this.raw.options || {})
@@ -261,6 +273,9 @@ export class NodeNovelInfo<T extends IMdconfMeta>
 			}[]));
 	}
 
+	/**
+	 * 取得小說狀態
+	 */
 	status(): EnumNovelStatus | number
 	{
 		if (this.raw.novel && this.raw.novel.novel_status)

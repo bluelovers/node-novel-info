@@ -53,13 +53,23 @@ export declare class NodeNovelInfo<T extends IMdconfMeta> {
      */
     contributes(): string[];
     /**
-     * 取得發布網站或者出版社列表
+     * 取得發布網站名稱或者出版社名稱列表
      */
     publishers(): string[];
+    /**
+     * 取得發布或者來源網址
+     */
+    sources(): string[];
+    /**
+     * 小說來源的網站資料(請查閱 novel-downloader)
+     */
     sites(): {
         site: string;
         data: IMdconfMetaOptionsNovelSite;
     }[];
+    /**
+     * 取得小說狀態
+     */
     status(): EnumNovelStatus | number;
     toJSON<R>(clone?: boolean): R;
     toJSON(clone?: boolean): T;

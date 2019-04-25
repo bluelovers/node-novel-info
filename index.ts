@@ -5,7 +5,7 @@
 import { EnumNovelStatus } from './lib/const';
 import mdconf = require('mdconf2');
 import { crlf, LF } from 'crlf-normalize';
-import { array_unique, deepmerge, deepmergeOptions } from './lib';
+import { array_unique, deepmerge, deepmergeOptions, filterByPrefixReturnKeys } from './lib';
 import moment = require('moment');
 import isPlainObject = require('is-plain-object');
 import sortObjectKeys = require('sort-object-keys2');
@@ -62,7 +62,13 @@ export interface IMdconfMeta
 		title_en?: string,
 		title_jp?: string,
 
+		/**
+		 * 作者
+		 */
 		author?: string,
+		/**
+		 * 作者列表
+		 */
 		authors?: string[],
 
 		/**
@@ -73,6 +79,9 @@ export interface IMdconfMeta
 		 * 繪師
 		 */
 		illust?: string,
+		/**
+		 * 繪師列表
+		 */
 		illusts?: string[],
 
 		/**
@@ -90,10 +99,22 @@ export interface IMdconfMeta
 			position?: number,
 		},
 
+		/**
+		 * 發布或者來源網址
+		 */
 		source?: string,
+		/**
+		 * 發布或者來源網址列表
+		 */
 		sources?: string[],
 
+		/**
+		 * 發布網站名稱或者出版社名稱
+		 */
 		publisher?: string,
+		/**
+		 * 發布網站名稱或者出版社名稱列表
+		 */
 		publishers?: string[],
 
 		/**
@@ -121,8 +142,17 @@ export interface IMdconfMeta
 			pattern?: string,
 		},
 
+		/**
+		 * 提供給打包與整理腳本使用的設定值
+		 */
 		textlayout?: IMdconfMetaOptionsBase & {
+			/**
+			 * 是否允許每一行之間有一個空行
+			 */
 			allow_lf2?: boolean,
+			/**
+			 * 是否允許每一行之間有兩個空行
+			 */
 			allow_lf3?: boolean,
 		},
 
@@ -145,6 +175,9 @@ export type IOptionsParse = mdconf.IOptionsParse & {
 	chk?: boolean,
 	throw?: boolean,
 
+	/**
+	 * 清除還原用的資料類型
+	 */
 	removeRawData?: boolean,
 
 	/**
@@ -463,10 +496,10 @@ export function getNovelTitleFromMeta(meta: IMdconfMeta): string[]
 				'title_zh',
 				'title_tw',
 				'title_cn',
-			].concat(Object.keys(meta.novel))
+			].concat(filterByPrefixReturnKeys('title_', meta.novel))
 			.reduce(function (a, key: string)
 			{
-				if (key.indexOf('title') === 0)
+				if (key in meta.novel)
 				{
 					a.push(meta.novel[key])
 				}

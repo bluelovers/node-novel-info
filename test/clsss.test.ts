@@ -12,3 +12,5 @@ console.dir(o.title());
 console.dir(o.titles());
 console.dir(o.illusts());
 console.dir(o.authors());
+console.dir(o.sources());
+console.dir(o.sites());
