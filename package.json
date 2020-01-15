@@ -1,6 +1,6 @@
 {
   "name": "node-novel-info",
-  "version": "2.3.33",
+  "version": "3.0.0",
   "description": "mdconf module for node-novel",
   "keywords": [
     "config",
@@ -28,30 +28,42 @@
   "author": "",
   "main": "index.js",
   "directories": {
+    "lib": "lib",
     "test": "test"
   },
   "scripts": {
-    "test": "npx jsmd README.md"
+    "coverage": "npx nyc yarn run test",
+    "lint": "npx eslint **/*.ts",
+    "ncu": "npx yarn-tool ncu -u",
+    "npm:publish": "npm publish",
+    "prepublishOnly": "yarn run ncu && yarn run sort-package-json && yarn run test",
+    "postpublish": "git commit -m \"publish new version\" .",
+    "sort-package-json": "npx sort-package-json ./package.json",
+    "test": "npx mocha --require ts-node/register \"!(node_modules)/**/*.{test,spec}.{ts,tsx}\"",
+    "tsc:default": "tsc -p tsconfig.json",
+    "tsc:esm": "tsc -p tsconfig.esm.json"
   },
   "dependencies": {
-    "array-hyper-unique": "^1.0.7",
-    "bind-decorator": "^1.0.11",
+    "array-hyper-unique": "^1.1.0",
     "chai": "^4.2.0",
-    "core-decorators": "^0.20.0",
     "crlf-normalize": "^1.0.3",
     "deepmerge-plus": "^2.1.3",
     "env-bool": "^1.0.3",
     "hex-lib": "^1.0.2",
-    "is-plain-object": "^2.0.4",
-    "jsdom-url": "^2.2.1",
-    "lodash": "^4.17.11",
-    "mdconf2": "^1.1.10",
+    "is-plain-object": "^3.0.0",
+    "jsdom-url": "^3.0.1",
+    "lodash": "^4.17.15",
+    "lodash-decorators": "^6.0.1",
+    "mdconf2": "^2.0.0",
     "moment": "^2.24.0",
     "sort-object-keys2": "^1.1.0"
   },
   "devDependencies": {
-    "lodash-decorators": "^6.0.1",
-    "@bluelovers/tsconfig": "^1.0.2",
-    "fs-extra": "^7"
+    "@bluelovers/tsconfig": "^1.0.13",
+    "@types/chai": "^4.2.7",
+    "@types/fs-extra": "^8.0.1",
+    "@types/lodash": "^4.14.149",
+    "false": "^0.0.4",
+    "fs-extra": "^8"
   }
 }
