@@ -1,6 +1,7 @@
 /**
  * Created by user on 2018/12/22/022.
  */
+import deepmergeNS from 'deepmerge-plus/core';
 /**
  * 小說狀態 flag 根據 readme.md 內設定
  */
@@ -67,3 +68,4 @@ export declare enum EnumNovelStatus {
      */
     P_PRINT = 32768
 }
+export declare const deepmergeOptions: deepmergeNS.Options;

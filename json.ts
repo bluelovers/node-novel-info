@@ -3,12 +3,15 @@
  */
 
 import { crlf, LF } from 'crlf-normalize';
-import { array_unique, deepmergeOptions } from './lib';
-import deepmerge = require('deepmerge-plus');
-import moment = require('moment');
-import Mdconf, { IMdconfMeta, stringify } from './index';
+import { deepmergeOptions } from './lib/const';
+import deepmerge from 'deepmerge-plus';
+import moment from 'moment';
+import { stringify as MdconfStringify} from './index';
+import { array_unique } from 'array-hyper-unique';
+import { sortKeys, chkInfo } from './lib/util';
+import { IOptionsParse, IMdconfMeta } from './lib/types';
 
-module JsonMd
+export module JsonMd
 {
 	export interface IOptions
 	{
@@ -105,7 +108,7 @@ module JsonMd
 			}
 		}
 
-		data = Mdconf.sortKeys(data);
+		data = sortKeys(data);
 
 		let md = `\n# novel
 
@@ -118,7 +121,7 @@ module JsonMd
 - status: ${data.novel_status || ''}
 `;
 
-		md += Mdconf.stringify(data.novel, 2, [
+		md += MdconfStringify(data.novel, 2, [
 			'title',
 			'author',
 			'source',
@@ -150,7 +153,7 @@ ${(data.novel_desc || data.data.desc || '').replace(/\`/g, '\\`')}
 		{
 			md += `\n# options\n`;
 
-			md += Mdconf.stringify(data.options, 2);
+			md += MdconfStringify(data.options, 2);
 		}
 
 		return LF + md.replace(/^\n+|\s+$/g, '') + LF;
@@ -260,7 +263,7 @@ ${(data.novel_desc || data.data.desc || '').replace(/\`/g, '\\`')}
 			// @ts-ignore
 		}, deepmergeOptions) as deepmerge.Options);
 
-		Mdconf.chkInfo(ret);
+		chkInfo(ret);
 
 		if (ret.novel.source)
 		{
@@ -280,7 +283,7 @@ ${(data.novel_desc || data.data.desc || '').replace(/\`/g, '\\`')}
 			});
 		}
 
-		ret = Mdconf.sortKeys(ret);
+		ret = sortKeys(ret);
 		ret.novel.tags.unshift('node-novel');
 		ret.novel.tags = array_unique(ret.novel.tags);
 
@@ -289,5 +292,4 @@ ${(data.novel_desc || data.data.desc || '').replace(/\`/g, '\\`')}
 
 }
 
-export { JsonMd };
 export default JsonMd;

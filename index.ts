@@ -2,189 +2,25 @@
  * Created by user on 2018/1/27/027.
  */
 
-import { EnumNovelStatus } from './lib/const';
-import mdconf = require('mdconf2');
+import { deepmergeOptions } from './lib/const';
+import { parse as _parse, stringify as _stringify, RawObject, mdconf } from 'mdconf2';
 import { crlf, LF } from 'crlf-normalize';
-import { array_unique, deepmerge, deepmergeOptions, filterByPrefixReturnKeys } from './lib';
-import moment = require('moment');
-import isPlainObject = require('is-plain-object');
-import sortObjectKeys = require('sort-object-keys2');
+import deepmerge from 'deepmerge-plus';
+import { array_unique } from 'array-hyper-unique';
 import JsonMd from './json';
 import { envVal, envBool } from 'env-bool';
 import { toHex } from 'hex-lib';
 import { expect } from 'chai';
+import { chkInfo, sortKeys } from './lib/util';
+import { IOptionsParse, IMdconfMeta } from './lib/types';
 
-export { mdconf, array_unique, crlf, LF }
-export { deepmerge, deepmergeOptions }
+export * from './lib/util';
+export * from './lib/types';
+export { IMdconfMeta, IOptionsParse } from './lib/types';
+
+export { mdconf }
+export { deepmergeOptions }
 export { envVal, envBool }
-
-export type INumber = number | string;
-
-export interface IMdconfMetaOptionsBase<T = any>
-{
-	[key: string]: T,
-}
-
-export interface IMdconfMetaOptionsNovelSite extends IMdconfMetaOptionsBase
-{
-	novel_id?: INumber,
-	url?: string,
-}
-
-export interface IMdconfMeta
-{
-	novel?: {
-		title?: string,
-
-		/**
-		 * 原始標題
-		 */
-		title_source?: string,
-
-		/**
-		 * 簡短標題
-		 * 如果 title_output 不存在 這個則會作為輸出 epub 的檔名備選之一
-		 */
-		title_short?: string,
-		/**
-		 * 輸出 epub 的檔名
-		 */
-		title_output?: string,
-
-		title_other?: string,
-
-		title_zh1?: string,
-		title_zh2?: string,
-
-		title_zh?: string,
-		title_cn?: string,
-		title_tw?: string,
-		title_en?: string,
-		title_jp?: string,
-
-		/**
-		 * 作者
-		 */
-		author?: string,
-		/**
-		 * 作者列表
-		 */
-		authors?: string[],
-
-		/**
-		 * 封面圖
-		 */
-		cover?: string,
-		/**
-		 * 繪師
-		 */
-		illust?: string,
-		/**
-		 * 繪師列表
-		 */
-		illusts?: string[],
-
-		/**
-		 * 簡介
-		 */
-		preface?: string,
-		tags?: string[],
-		date?: string,
-		status?: string,
-		r18?: string,
-
-		series?: {
-			name?: string,
-			name_short?: string,
-			position?: number,
-		},
-
-		/**
-		 * 發布或者來源網址
-		 */
-		source?: string,
-		/**
-		 * 發布或者來源網址列表
-		 */
-		sources?: string[],
-
-		/**
-		 * 發布網站名稱或者出版社名稱
-		 */
-		publisher?: string,
-		/**
-		 * 發布網站名稱或者出版社名稱列表
-		 */
-		publishers?: string[],
-
-		/**
-		 * 小說狀態 flag
-		 */
-		novel_status?: EnumNovelStatus | number,
-	}
-
-	/**
-	 * 翻譯 校對 整合 ...等 貢獻者 或 其他
-	 */
-	contribute?: string[],
-
-	options?: IMdconfMetaOptionsBase & {
-
-		dmzj?: IMdconfMetaOptionsNovelSite,
-		kakuyomu?: IMdconfMetaOptionsNovelSite,
-		wenku8?: IMdconfMetaOptionsNovelSite,
-		webqxs?: IMdconfMetaOptionsNovelSite,
-		syosetu?: IMdconfMetaOptionsNovelSite & {
-			txtdownload_id: INumber,
-		},
-
-		novel?: IMdconfMetaOptionsBase & {
-			pattern?: string,
-		},
-
-		/**
-		 * 提供給打包與整理腳本使用的設定值
-		 */
-		textlayout?: IMdconfMetaOptionsBase & {
-			/**
-			 * 是否允許每一行之間有一個空行
-			 */
-			allow_lf2?: boolean,
-			/**
-			 * 是否允許每一行之間有兩個空行
-			 */
-			allow_lf3?: boolean,
-		},
-
-		/**
-		 * novel-downloader
-		 */
-		downloadOptions?: IMdconfMetaOptionsBase & {
-			noFirePrefix?: boolean,
-			noFilePadend?: boolean,
-			filePrefixMode?: number,
-			startIndex?: number,
-		},
-
-	},
-
-	link?: string[],
-}
-
-export type IOptionsParse = mdconf.IOptionsParse & {
-	chk?: boolean,
-	throw?: boolean,
-
-	/**
-	 * 清除還原用的資料類型
-	 */
-	removeRawData?: boolean,
-
-	/**
-	 * 允許殘缺不合法的 meta info
-	 */
-	lowCheckLevel?: boolean,
-}
 
 export const defaultOptionsParse: IOptionsParse = {
 	removeRawData: true,
@@ -195,7 +31,7 @@ export function stringify(data, d2?, ...argv): string
 {
 	data = _handleDataForStringify(data, d2, ...argv);
 
-	return mdconf.stringify(data) + LF.repeat(2);
+	return _stringify(data) + LF.repeat(2);
 }
 
 export function parse<T = IMdconfMeta>(data: {
@@ -214,7 +50,7 @@ export function parse<T extends IMdconfMeta>(data, options: IOptionsParse = {}):
 		options.disableKeyToLowerCase = true;
 	}
 
-	let ret = mdconf.parse(crlf(data.toString()), options) as IMdconfMeta;
+	let ret = _parse(crlf(data.toString()), options) as IMdconfMeta;
 
 	try
 	{
@@ -247,11 +83,14 @@ export function parse<T extends IMdconfMeta>(data, options: IOptionsParse = {}):
 
 	if (options.throw || options.throw == null)
 	{
-		ret = chkInfo(ret, options);
+		ret = chkInfo(ret, {
+			...options,
+			throw: true,
+		});
 
 		if (!ret)
 		{
-			throw new Error('mdconf_parse');
+			throw new Error('not a valid node-novel-info mdconf');
 		}
 	}
 
@@ -289,7 +128,7 @@ export function _handleDataForStringify<T extends IMdconfMeta>(data, d2?, ...arg
 
 	if (data.novel.preface && typeof data.novel.preface == 'string')
 	{
-		data.novel.preface = new mdconf.RawObject(data.novel.preface, {});
+		data.novel.preface = new RawObject(data.novel.preface, {});
 	}
 
 	if ('novel_status' in data.novel)
@@ -301,245 +140,6 @@ export function _handleDataForStringify<T extends IMdconfMeta>(data, d2?, ...arg
 
 	// @ts-ignore
 	return data;
-}
-
-export function sortKeys<T extends IMdconfMeta>(ret: T)
-{
-	// @ts-ignore
-	ret = sortObjectKeys(ret, [
-		'novel',
-		'contribute',
-		'options',
-	]);
-
-	sortSubKey('novel', [
-		'title',
-		'title_short',
-		'title_zh',
-		'title_zh1',
-		'title_zh2',
-		'title_en',
-		'title_jp',
-		'title_output',
-		'title_other',
-		'title_source',
-		'author',
-		'authors',
-		'illust',
-		'illusts',
-		'source',
-		'cover',
-		'publisher',
-		'publishers',
-		'date',
-		'status',
-		'novel_status',
-		'r18',
-
-		'series',
-
-		'preface',
-		'tags',
-	]);
-
-	sortSubKey(['novel', 'tags'], null, true);
-	sortSubKey('contribute', null, true);
-	sortSubKey('options');
-
-	function sortSubKey(key, sortList?: string[], unique?: boolean)
-	{
-		let obj = ret;
-		let parent = obj;
-
-		//console.log(obj, sortList);
-
-		if (Array.isArray(key))
-		{
-			//console.log(key);
-
-			let _k;
-
-			for (let value of key)
-			{
-				if (!(value in obj))
-				{
-					//console.log(value, parent);
-
-					return;
-				}
-
-				_k = value;
-
-				parent = obj;
-				obj = parent[value];
-			}
-
-			key = _k;
-		}
-		else if ((key in parent))
-		{
-			obj = parent[key];
-		}
-		else
-		{
-			return;
-		}
-
-		if (Array.isArray(obj))
-		{
-			obj.sort();
-			parent[key] = obj;
-			if (unique)
-			{
-				parent[key] = parent[key].filter(function (v)
-				{
-					return v;
-				});
-
-				parent[key] = array_unique(parent[key]);
-
-				if (parent[key].length == 1 && (parent[key][0] === null || typeof parent[key][0] == 'undefined'))
-				{
-					parent[key] = [];
-				}
-			}
-
-			return;
-		}
-		if (isPlainObject(obj))
-		{
-			parent[key] = sortObjectKeys(obj, sortList);
-		}
-	}
-
-	// @ts-ignore
-	return ret;
-}
-
-export function chkInfo(ret: IMdconfMeta, options: IOptionsParse = {}): IMdconfMeta
-{
-	if (!ret
-		|| (
-			(!options || !options.lowCheckLevel)
-			&& (!ret.novel || !ret.novel.title)
-		)
-	)
-	{
-		return null;
-	}
-
-	if (ret.novel)
-	{
-		[
-			'authors',
-			'illusts',
-			'tags',
-			'sources',
-			'publishers',
-		].forEach(k => {
-			if (k in ret.novel)
-			{
-				ret.novel[k] = anyToArray(ret.novel[k], true);
-			}
-		});
-
-		if ('novel_status' in ret.novel)
-		{
-			ret.novel.novel_status = envVal(ret.novel.novel_status);
-
-			if (typeof ret.novel.novel_status === 'string' && /^0x[\da-f]+$/.test(ret.novel.novel_status))
-			{
-				ret.novel.novel_status = Number(ret.novel.novel_status);
-			}
-		}
-	}
-
-	if ('contribute' in ret)
-	{
-		ret.contribute = anyToArray(ret.contribute, true);
-	}
-
-	if (!options.lowCheckLevel)
-	{
-		ret.options = ret.options || {};
-	}
-
-	if (ret.options)
-	{
-		if (typeof ret.options.textlayout === 'object')
-		{
-			Object.entries(ret.options.textlayout)
-				.forEach(([k, v]) => ret.options.textlayout[k] = envVal(v))
-			;
-		}
-
-		if (typeof ret.options.downloadOptions === 'object')
-		{
-			Object.entries(ret.options.downloadOptions)
-				.forEach(([k, v]) => ret.options.downloadOptions[k] = envVal(v))
-			;
-		}
-	}
-
-	return ret;
-}
-
-export function getNovelTitleFromMeta(meta: IMdconfMeta): string[]
-{
-	if (meta && meta.novel)
-	{
-		let arr = [
-				'title',
-				'title_source',
-				'title_jp',
-				'title_ja',
-				'title_zh',
-				'title_tw',
-				'title_cn',
-			].concat(filterByPrefixReturnKeys('title_', meta.novel))
-			.reduce(function (a, key: string)
-			{
-				if (key in meta.novel)
-				{
-					a.push(meta.novel[key])
-				}
-
-				return a
-			}, [])
-		;
-
-		if (meta.novel.series)
-		{
-			arr.push(meta.novel.series.name);
-			arr.push(meta.novel.series.name_short);
-		}
-
-		arr = array_unique(arr.filter(v => v && ![
-			'undefined',
-			'長編 【連載】',
-			'連載中',
-		].includes(v)));
-
-		return arr;
-	}
-
-	return [];
-}
-
-function anyToArray<T = string>(input: T | T[], unique?: boolean): T[]
-{
-	if (typeof input != 'object')
-	{
-		input = [input];
-	}
-
-	if (unique)
-	{
-		input = array_unique(input || []);
-	}
-
-	// @ts-ignore
-	return input;
 }
 
 export const version: string = require("./package.json").version;

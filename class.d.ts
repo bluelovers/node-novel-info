@@ -2,8 +2,9 @@
 /**
  * Created by user on 2019/1/21/021.
  */
-import { IMdconfMeta, IMdconfMetaOptionsNovelSite, IOptionsParse, parse, stringify } from './index';
+import { parse, stringify } from './index';
 import { EnumNovelStatus } from './lib/const';
+import { IOptionsParse, IMdconfMeta, IMdconfMetaOptionsNovelSite } from './lib/types';
 export declare type INodeNovelInfoOptions = IOptionsParse & {};
 export declare class NodeNovelInfo<T extends IMdconfMeta> {
     raw: T;
@@ -22,8 +23,8 @@ export declare class NodeNovelInfo<T extends IMdconfMeta> {
         is_out: boolean;
         pathMain_base: string;
     };
-    readonly is_out: boolean;
-    readonly pathMain_base: string;
+    get is_out(): boolean;
+    get pathMain_base(): string;
     /**
      * 取得小說標題
      */

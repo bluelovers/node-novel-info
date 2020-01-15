@@ -4,9 +4,8 @@
 
 import JsonMd from '../json';
 import novelInfo from '..';
-import * as fs from 'fs-extra';
-// @ts-ignore
-import * as path from 'path';
+import fs from 'fs-extra';
+import path from 'path';
 
 [
 	'./res/四度目は嫌な死属性魔術師.n1745ct.json',

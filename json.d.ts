@@ -1,8 +1,8 @@
 /**
  * Created by user on 2018/2/3/003.
  */
-import { IMdconfMeta } from './index';
-declare module JsonMd {
+import { IMdconfMeta } from './lib/types';
+export declare module JsonMd {
     interface IOptions {
         tags?: string[];
         contribute?: string[];
@@ -32,5 +32,4 @@ declare module JsonMd {
     function stringify(json_data: Partial<IJsonmdData_v1 & IMdconfMeta & IOptions>, options?: IMdconfMeta & IOptions): string;
     function toNovelInfo(initData: Partial<IMdconfMeta>, inputData: Partial<IJsonmdData_v1 & IMdconfMeta & IOptions>, ...argv: Partial<IJsonmdData_v1 & IMdconfMeta & IOptions>[]): IMdconfMeta;
 }
-export { JsonMd };
 export default JsonMd;

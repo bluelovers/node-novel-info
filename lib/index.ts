@@ -2,31 +2,7 @@
  * Created by user on 2018/1/28/028.
  */
 
-import deepmerge = require('deepmerge-plus');
-import deepmergeNS from 'deepmerge-plus/core';
-import moment = require('moment');
-import mdconf = require('mdconf2');
-import { URL } from 'jsdom-url';
 import { array_unique } from 'array-hyper-unique';
-
-export { deepmerge, moment, mdconf }
-
-export { array_unique }
-
-export const deepmergeOptions: deepmergeNS.Options = {
-	isMergeableObject(value, isMergeableObject) {
-		let bool;
-
-		if (moment.isMoment(value) || mdconf.RawObject.isRawObject(value)) {
-			return false;
-		}
-
-		if (value instanceof URL || value && typeof value.href == 'string')
-		{
-			return false;
-		}
-	}
-};
 
 type IFilterPatternFn<T extends unknown> = ((key: string, value: T | unknown) => boolean);
 
@@ -103,4 +79,41 @@ export function filterByPrefixReturnValues<T extends unknown>(prefix: IFilterPat
 		.map(item => item[1])
 }
 
-export default exports as typeof import('./index');
+export function arr_filter<T>(arr: T[])
+{
+	return array_unique(arr).filter(v =>
+	{
+		return v && v != null
+			// @ts-ignore
+			&& v != 'null'
+			// @ts-ignore
+			&& v != 'undefined'
+	});
+}
+
+export function cb_title_filter(v: string)
+{
+	return typeof v === 'string' && v && ![
+		'連載中',
+		'長編 【連載】',
+		'undefined',
+		'null',
+		'',
+	].includes(v.trim())
+}
+
+export function anyToArray<T = string>(input: T | T[], unique?: boolean): T[]
+{
+	if (typeof input != 'object')
+	{
+		input = [input];
+	}
+
+	if (unique)
+	{
+		input = array_unique(input || []);
+	}
+
+	// @ts-ignore
+	return input;
+}

@@ -1,14 +1,6 @@
 /**
  * Created by user on 2018/1/28/028.
  */
-import deepmerge = require('deepmerge-plus');
-import deepmergeNS from 'deepmerge-plus/core';
-import moment = require('moment');
-import mdconf = require('mdconf2');
-import { array_unique } from 'array-hyper-unique';
-export { deepmerge, moment, mdconf };
-export { array_unique };
-export declare const deepmergeOptions: deepmergeNS.Options;
 declare type IFilterPatternFn<T extends unknown> = ((key: string, value: T | unknown) => boolean);
 declare type IFilterPattern<T extends unknown> = IFilterPatternFn<T> | string | RegExp;
 declare type IEntries<T extends unknown> = [string, T][];
@@ -28,5 +20,7 @@ export declare function filterByPrefixReturnValues<T extends unknown>(prefix: IF
 }, options?: {
     ignore?: IFilterPattern<T>;
 }): T[];
-declare const _default: typeof import(".");
-export default _default;
+export declare function arr_filter<T>(arr: T[]): T[];
+export declare function cb_title_filter(v: string): boolean;
+export declare function anyToArray<T = string>(input: T | T[], unique?: boolean): T[];
+export {};

@@ -2,7 +2,7 @@
  * Created by user on 2019/3/8.
  */
 import NodeNovelInfo from '../class';
-import fs = require('fs');
+import fs from 'fs-extra';
 
 let md = fs.readFileSync('C:/Home/link/dist_novel/syosetu/望まぬ不死の冒険者/README.md');
 

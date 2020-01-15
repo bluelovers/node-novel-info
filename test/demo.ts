@@ -3,8 +3,7 @@
  */
 
 import novelInfo from '..';
-// @ts-ignore
-import * as fs from 'fs-extra';
+import fs from 'fs-extra';
 
 fs.readFile('./res/README2.md')
 	.then(function (buf)

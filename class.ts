@@ -1,21 +1,14 @@
 /**
  * Created by user on 2019/1/21/021.
  */
-import {
-	chkInfo,
-	getNovelTitleFromMeta,
-	IMdconfMeta,
-	IMdconfMetaOptionsNovelSite,
-	IOptionsParse,
-	parse,
-	stringify,
-} from './index';
-import bind from 'bind-decorator';
-import { array_unique, deepmerge, deepmergeOptions, filterByPrefix, filterByPrefixReturnValues } from './lib';
+import { parse, stringify } from './index';
+import bind from 'lodash-decorators/bind';
+import { filterByPrefixReturnValues } from './lib';
 import { EnumNovelStatus } from './lib/const';
-import moment = require('moment');
-import cloneDeep = require('lodash/cloneDeep');
-import { toHex } from 'hex-lib';
+import cloneDeep from 'lodash/cloneDeep';
+import { getNovelTitleFromMeta, chkInfo } from './lib/util';
+import { cb_title_filter, arr_filter } from './lib/index';
+import { IOptionsParse, IMdconfMeta, IMdconfMetaOptionsNovelSite } from './lib/types';
 
 export type INodeNovelInfoOptions = IOptionsParse & {};
 
@@ -307,26 +300,3 @@ export class NodeNovelInfo<T extends IMdconfMeta>
 }
 
 export default NodeNovelInfo
-
-function arr_filter<T>(arr: T[])
-{
-	return array_unique(arr).filter(v =>
-	{
-		return v && v != null
-			// @ts-ignore
-			&& v != 'null'
-			// @ts-ignore
-			&& v != 'undefined'
-	});
-}
-
-function cb_title_filter(v: string)
-{
-	return typeof v === 'string' && v && ![
-		'連載中',
-		'長編 【連載】',
-		'undefined',
-		'null',
-		'',
-	].includes(v.trim())
-}
