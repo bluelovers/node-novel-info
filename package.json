@@ -1,6 +1,6 @@
 {
   "name": "node-novel-info",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "mdconf module for node-novel",
   "keywords": [
     "config",
@@ -25,7 +25,7 @@
     "url": "git+https://github.com/bluelovers/node-novel-info.git"
   },
   "license": "ISC",
-  "author": "",
+  "author": "bluelovers",
   "main": "index.js",
   "directories": {
     "lib": "lib",
@@ -36,10 +36,12 @@
     "lint": "npx eslint **/*.ts",
     "ncu": "npx yarn-tool ncu -u",
     "npm:publish": "npm publish",
+    "prepublish:lockfile": "npx sync-lockfile .",
     "prepublishOnly": "yarn run ncu && yarn run sort-package-json && yarn run test",
-    "postpublish": "git commit -m \"publish new version\" .",
-    "sort-package-json": "npx sort-package-json ./package.json",
+    "postpublish": "git commit -m \"chore(release): publish\" .",
+    "sort-package-json": "npx yarn-tool sort",
     "test": "npx mocha --require ts-node/register \"!(node_modules)/**/*.{test,spec}.{ts,tsx}\"",
+    "test:mocha": "npx mocha --require ts-node/register \"!(node_modules)/**/*.{test,spec}.{ts,tsx}\"",
     "tsc:default": "tsc -p tsconfig.json",
     "tsc:esm": "tsc -p tsconfig.esm.json"
   },
@@ -59,11 +61,10 @@
     "sort-object-keys2": "^1.1.0"
   },
   "devDependencies": {
-    "@bluelovers/tsconfig": "^1.0.13",
-    "@types/chai": "^4.2.7",
-    "@types/fs-extra": "^8.0.1",
+    "@bluelovers/tsconfig": "^1.0.19",
+    "@types/chai": "^4.2.11",
+    "@types/fs-extra": "^8.1.0",
     "@types/lodash": "^4.14.149",
-    "false": "^0.0.4",
-    "fs-extra": "^8"
+    "fs-extra": "^9"
   }
 }
