@@ -11,7 +11,7 @@ import isPlainObject from 'is-plain-object';
 
 export function getNovelTitleFromMeta(meta: IMdconfMeta): string[]
 {
-	if (meta && meta.novel)
+	if (meta?.novel)
 	{
 		let arr = [
 				'title',
@@ -174,7 +174,7 @@ export function chkInfo(ret: IMdconfMeta, options: IOptionsParse = {}): IMdconfM
 		)
 	)
 	{
-		if (options && options.throw)
+		if (options?.throw)
 		{
 			throw new TypeError(`novel${(ret.novel ? '.title' : '')} not exists.`);
 		}
@@ -202,7 +202,7 @@ export function chkInfo(ret: IMdconfMeta, options: IOptionsParse = {}): IMdconfM
 		{
 			ret.novel.novel_status = envVal(ret.novel.novel_status);
 
-			if (typeof ret.novel.novel_status === 'string' && /^0x[\da-f]+$/.test(ret.novel.novel_status))
+			if (isHexValue(ret.novel.novel_status))
 			{
 				ret.novel.novel_status = Number(ret.novel.novel_status);
 			}
@@ -237,4 +237,9 @@ export function chkInfo(ret: IMdconfMeta, options: IOptionsParse = {}): IMdconfM
 	}
 
 	return ret;
+}
+
+export function isHexValue(value: string | number)
+{
+	return typeof value === 'string' && /^0x[\da-f]+$/i.test(value)
 }

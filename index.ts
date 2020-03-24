@@ -11,7 +11,7 @@ import JsonMd from './json';
 import { envVal, envBool } from 'env-bool';
 import { toHex } from 'hex-lib';
 import { expect } from 'chai';
-import { chkInfo, sortKeys } from './lib/util';
+import { chkInfo, sortKeys, isHexValue } from './lib/util';
 import { IOptionsParse, IMdconfMeta } from './lib/types';
 
 export * from './lib/util';
@@ -54,11 +54,9 @@ export function parse<T extends IMdconfMeta>(data, options: IOptionsParse = {}):
 
 	try
 	{
-		if (ret.novel && ret.novel.preface)
+		if (ret.novel?.preface)
 		{
-			ret.novel.preface = (ret.novel.preface
-				&& ret.novel.preface.length
-				&& Array.isArray(ret.novel.preface)) ? ret.novel.preface.join(LF) : ret.novel.preface
+			ret.novel.preface = (Array.isArray(ret.novel.preface)) ? ret.novel.preface.join(LF) : ret.novel.preface
 			;
 		}
 
@@ -126,12 +124,12 @@ export function _handleDataForStringify<T extends IMdconfMeta>(data, d2?, ...arg
 {
 	data = _handleData(data, d2, ...argv);
 
-	if (data.novel.preface && typeof data.novel.preface == 'string')
+	if (typeof data.novel?.preface == 'string')
 	{
 		data.novel.preface = new RawObject(data.novel.preface, {});
 	}
 
-	if ('novel_status' in data.novel)
+	if ('novel_status' in data.novel && !isHexValue(data.novel.novel_status))
 	{
 		expect(data.novel.novel_status).a('number');
 

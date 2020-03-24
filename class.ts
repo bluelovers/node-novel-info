@@ -151,8 +151,8 @@ export class NodeNovelInfo<T extends IMdconfMeta>
 	series_titles(): string[]
 	{
 		return arr_filter([
-			this.raw.novel && this.raw.novel.series && this.raw.novel.series.name,
-			this.raw.novel && this.raw.novel.series && this.raw.novel.series.name_short,
+			this.raw.novel?.series?.name,
+			this.raw.novel?.series?.name_short,
 		].concat([]))
 			.filter(cb_title_filter)
 	}
@@ -163,7 +163,7 @@ export class NodeNovelInfo<T extends IMdconfMeta>
 	authors(): string[]
 	{
 		return arr_filter([
-			this.raw.novel && this.raw.novel.author,
+			this.raw.novel?.author,
 		].concat(this.raw.novel.authors || []))
 	}
 
@@ -213,7 +213,7 @@ export class NodeNovelInfo<T extends IMdconfMeta>
 	 */
 	tags(): string[]
 	{
-		return arr_filter(this.raw.novel && this.raw.novel.tags || [])
+		return arr_filter(this.raw.novel?.tags || [])
 	}
 
 	/**
@@ -230,7 +230,7 @@ export class NodeNovelInfo<T extends IMdconfMeta>
 	publishers(): string[]
 	{
 		return arr_filter([
-			this.raw.novel && this.raw.novel.publisher,
+			this.raw.novel?.publisher,
 		].concat(this.raw.novel.publishers || []))
 	}
 
@@ -271,10 +271,7 @@ export class NodeNovelInfo<T extends IMdconfMeta>
 	 */
 	status(): EnumNovelStatus | number
 	{
-		if (this.raw.novel && this.raw.novel.novel_status)
-		{
-			return this.raw.novel.novel_status
-		}
+		return this.raw.novel?.novel_status
 	}
 
 	toJSON<R>(clone?: boolean): R
