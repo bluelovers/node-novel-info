@@ -1,6 +1,6 @@
 {
   "name": "node-novel-info",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "mdconf module for node-novel",
   "keywords": [
     "config",
@@ -60,6 +60,5 @@
     "mdconf2": "^2.0.2",
     "moment": "^2.26.0",
     "sort-object-keys2": "^2.0.3"
-  },
-  "devDependencies": {}
+  }
 }
