@@ -126,7 +126,7 @@ export function _handleDataForStringify<T extends IMdconfMeta>(data, d2?, ...arg
 
 	if (typeof data.novel?.preface == 'string')
 	{
-		data.novel.preface = new RawObject(data.novel.preface, {});
+		data.novel.preface = new RawObject(data.novel.preface, {} as any);
 	}
 
 	if ('novel_status' in data.novel && !isHexValue(data.novel.novel_status))

@@ -175,9 +175,9 @@ export class NodeNovelInfo<T extends IMdconfMeta>
 		let novel = this.raw.novel;
 
 		let arr = arr_filter([
-			'illust',
-			'illusts',
-		]
+				'illust',
+				'illusts',
+			]
 			.concat(Object.keys(novel))
 			.reduce(function (a, key: string)
 			{

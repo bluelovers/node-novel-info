@@ -6,7 +6,7 @@ import { crlf, LF } from 'crlf-normalize';
 import { deepmergeOptions } from './lib/const';
 import deepmerge from 'deepmerge-plus';
 import moment from 'moment';
-import { stringify as MdconfStringify} from './index';
+import { stringify as MdconfStringify } from './index';
 import { array_unique } from 'array-hyper-unique';
 import { sortKeys, chkInfo } from './lib/util';
 import { IOptionsParse, IMdconfMeta } from './lib/types';
@@ -48,7 +48,7 @@ export module JsonMd
 	export function stringify(json_data: IJsonmdData_v1, options?: IMdconfMeta & IOptions): string
 	export function stringify(json_data: IMdconfMeta, options?: IMdconfMeta & IOptions): string
 	export function stringify(json_data: Partial<IJsonmdData_v1 & IMdconfMeta & IOptions>,
-		options?: IMdconfMeta & IOptions
+		options?: IMdconfMeta & IOptions,
 	): string
 	export function stringify(json_data, options: IMdconfMeta & IOptions = {}): string
 	{
@@ -130,7 +130,7 @@ export module JsonMd
 			'date',
 			'status',
 			'preface',
-			'tags'
+			'tags',
 		]);
 
 		md += `\n## preface
@@ -159,7 +159,10 @@ ${(data.novel_desc || data.data.desc || '').replace(/\`/g, '\\`')}
 		return LF + md.replace(/^\n+|\s+$/g, '') + LF;
 	}
 
-	export function toNovelInfo(initData: Partial<IMdconfMeta>, inputData: Partial<IJsonmdData_v1 & IMdconfMeta & IOptions>, ...argv: Partial<IJsonmdData_v1 & IMdconfMeta & IOptions>[]): IMdconfMeta
+	export function toNovelInfo(initData: Partial<IMdconfMeta>,
+		inputData: Partial<IJsonmdData_v1 & IMdconfMeta & IOptions>,
+		...argv: Partial<IJsonmdData_v1 & IMdconfMeta & IOptions>[]
+	): IMdconfMeta
 	{
 		let ret: IMdconfMeta;
 
@@ -208,9 +211,9 @@ ${(data.novel_desc || data.data.desc || '').replace(/\`/g, '\\`')}
 			{
 				novel: {
 					source: data.url && (typeof data.url == 'string' ?
-						data.url
-						// @ts-ignore
-						: data.url.href
+							data.url
+							// @ts-ignore
+							: data.url.href
 					),
 				},
 			},

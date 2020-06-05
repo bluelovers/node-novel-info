@@ -75,7 +75,7 @@ var JsonMd;
             'date',
             'status',
             'preface',
-            'tags'
+            'tags',
         ]);
         md += `\n## preface
 
