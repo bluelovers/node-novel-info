@@ -47,7 +47,7 @@
     "tsc:esm": "tsc -p tsconfig.esm.json"
   },
   "dependencies": {
-    "array-hyper-unique": "^1.1.0",
+    "array-hyper-unique": "^1.1.2",
     "chai": "^4.2.0",
     "crlf-normalize": "^1.0.3",
     "deepmerge-plus": "^2.1.3",
