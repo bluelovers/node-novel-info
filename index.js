@@ -16,7 +16,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.mdconf_parse = exports.version = exports._handleDataForStringify = exports._handleData = exports.parse = exports.stringify = exports.defaultOptionsParse = exports.envBool = exports.envVal = exports.deepmergeOptions = exports.mdconf = void 0;
+exports.mdconf_parse = exports._handleDataForStringify = exports._handleData = exports.parse = exports.stringify = exports.defaultOptionsParse = exports.envBool = exports.envVal = exports.deepmergeOptions = exports.mdconf = void 0;
 const const_1 = require("./lib/const");
 Object.defineProperty(exports, "deepmergeOptions", { enumerable: true, get: function () { return const_1.deepmergeOptions; } });
 const mdconf2_1 = require("mdconf2");
@@ -33,6 +33,7 @@ const chai_1 = require("chai");
 const util_1 = require("./lib/util");
 __exportStar(require("./lib/util"), exports);
 __exportStar(require("./lib/types"), exports);
+__exportStar(require("./version"), exports);
 exports.defaultOptionsParse = {
     removeRawData: true,
     disableKeyToLowerCase: true,
@@ -112,7 +113,6 @@ function _handleDataForStringify(data, d2, ...argv) {
     return data;
 }
 exports._handleDataForStringify = _handleDataForStringify;
-exports.version = require("./package.json").version;
 exports.mdconf_parse = parse;
 exports.default = exports;
 //# sourceMappingURL=index.js.map

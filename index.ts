@@ -17,6 +17,7 @@ import { IOptionsParse, IMdconfMeta } from './lib/types';
 export * from './lib/util';
 export * from './lib/types';
 export { IMdconfMeta, IOptionsParse } from './lib/types';
+export * from './version';
 
 export { mdconf }
 export { deepmergeOptions }
@@ -139,8 +140,6 @@ export function _handleDataForStringify<T extends IMdconfMeta>(data, d2?, ...arg
 	// @ts-ignore
 	return data;
 }
-
-export const version: string = require("./package.json").version;
 
 export const mdconf_parse = parse;
 
