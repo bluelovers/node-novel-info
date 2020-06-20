@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.7](https://github.com/bluelovers/node-novel-info/compare/node-novel-info@3.0.6...node-novel-info@3.0.7) (2020-06-20)
+
+
+### 🔖　Miscellaneous
+
+* . ([5b4c70f](https://github.com/bluelovers/node-novel-info/commit/5b4c70fc018e2f2622187143859a9783c5370849))
+
+
+
+
+
 ## [3.0.6](https://github.com/bluelovers/node-novel-info/compare/node-novel-info@3.0.5...node-novel-info@3.0.6) (2020-06-20)
 
 
