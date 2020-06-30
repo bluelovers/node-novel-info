@@ -1,6 +1,6 @@
 {
   "name": "node-novel-info",
-  "version": "3.0.7",
+  "version": "3.0.8",
   "description": "mdconf module for node-novel",
   "keywords": [
     "config",
@@ -57,7 +57,7 @@
     "jsdom-url": "^3.0.1",
     "lodash": "^4.17.15",
     "lodash-decorators": "^6.0.1",
-    "mdconf2": "^2.0.7",
+    "mdconf2": "^2.0.8",
     "moment": "^2.27.0",
     "sort-object-keys2": "^2.0.3"
   },
