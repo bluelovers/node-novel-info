@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.10](https://github.com/bluelovers/node-novel-info/compare/node-novel-info@3.0.9...node-novel-info@3.0.10) (2020-07-19)
+
+
+### 🛠　Build System
+
+* update typescript ([c7bc23e](https://github.com/bluelovers/node-novel-info/commit/c7bc23ed14faf935ec25170eb23010d8f9c685c1))
+
+
+### ♻️　Chores
+
+* update deps ([bd64462](https://github.com/bluelovers/node-novel-info/commit/bd644622f4f1f4941293c180272df22ec30d402a))
+* files miss add to git ([3363cdb](https://github.com/bluelovers/node-novel-info/commit/3363cdb2ec299e28964c54fe8bd83118ad5f4683))
+
+
+
+
+
 ## [3.0.9](https://github.com/bluelovers/node-novel-info/compare/node-novel-info@3.0.8...node-novel-info@3.0.9) (2020-06-30)
 
 
