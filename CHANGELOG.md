@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.13](https://github.com/bluelovers/node-novel-info/compare/node-novel-info@3.0.12...node-novel-info@3.0.13) (2021-02-12)
+
+
+### 📦　Code Refactoring
+
+* **deps:** update is-plain-object ([48ead67](https://github.com/bluelovers/node-novel-info/commit/48ead6797a8faab19e8a306e027c2cb1e556acc2))
+
+
+### 🛠　Build System
+
+* update typescript ([90c2208](https://github.com/bluelovers/node-novel-info/commit/90c22085d647eea8c5e8c4a24ca3dd63cbf784af))
+
+
+
+
+
 ## [3.0.12](https://github.com/bluelovers/node-novel-info/compare/node-novel-info@3.0.11...node-novel-info@3.0.12) (2021-02-12)
 
 
