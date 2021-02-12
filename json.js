@@ -178,10 +178,14 @@ ${(data.novel_desc || data.data.desc || '').replace(/\`/g, '\\`')}
                     publisher: '',
                     cover: '',
                     source: '',
+                    //tags: [],
                 },
+                //contribute: [],
+                //options: {},
             },
         ], Object.assign({
             keyValueOrMode: true,
+            // @ts-ignore
         }, const_1.deepmergeOptions));
         util_1.chkInfo(ret);
         if (ret.novel.source) {

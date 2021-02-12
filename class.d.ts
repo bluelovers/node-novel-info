@@ -11,7 +11,7 @@ export declare class NodeNovelInfo<T extends IMdconfMeta> {
     pathMain?: string;
     novelID?: string;
     constructor(mdconf: T, options?: INodeNovelInfoOptions, ...argv: any[]);
-    static fixOptions(options?: INodeNovelInfoOptions): Readonly<IOptionsParse> & import("mdconf2").IOptionsParse & {
+    static fixOptions(options?: INodeNovelInfoOptions): Readonly<INodeNovelInfoOptions> & import("mdconf2").IOptionsParse & {
         chk?: boolean;
         throw?: boolean;
         removeRawData?: boolean;

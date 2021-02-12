@@ -21,5 +21,5 @@ export declare function parse<T = IMdconfMeta>(data: string, options?: IOptionsP
 export declare function _handleData<T extends IMdconfMeta>(data: any, d2?: any, ...argv: any[]): T;
 export declare function _handleDataForStringify<T extends IMdconfMeta>(data: any, d2?: any, ...argv: any[]): T;
 export declare const mdconf_parse: typeof parse;
-declare const _default: typeof import(".");
+declare const _default: typeof import("./index");
 export default _default;
