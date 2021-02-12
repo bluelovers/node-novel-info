@@ -48,17 +48,17 @@
   },
   "dependencies": {
     "array-hyper-unique": "^1.1.9",
-    "chai": "^4.2.0",
+    "chai": "^4.3.0",
     "crlf-normalize": "^1.0.5",
     "deepmerge-plus": "^2.1.3",
     "env-bool": "^1.0.3",
     "hex-lib": "^1.0.2",
-    "is-plain-object": "^4.1.1",
+    "is-plain-object": "^5.0.0",
     "jsdom-url": "^3.0.1",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.20",
     "lodash-decorators": "^6.0.1",
     "mdconf2": "^2.0.11",
-    "moment": "^2.27.0",
+    "moment": "^2.29.1",
     "sort-object-keys2": "^2.0.3"
   },
   "gitHead": "8ff7ca75e321ade4a7c9ed769752caa12a3f507a"
