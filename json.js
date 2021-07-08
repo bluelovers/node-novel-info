@@ -2,15 +2,13 @@
 /**
  * Created by user on 2018/2/3/003.
  */
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.JsonMd = void 0;
+const tslib_1 = require("tslib");
 const crlf_normalize_1 = require("crlf-normalize");
 const const_1 = require("./lib/const");
-const deepmerge_plus_1 = __importDefault(require("deepmerge-plus"));
-const moment_1 = __importDefault(require("moment"));
+const deepmerge_plus_1 = (0, tslib_1.__importDefault)(require("deepmerge-plus"));
+const moment_1 = (0, tslib_1.__importDefault)(require("moment"));
 const index_1 = require("./index");
 const array_hyper_unique_1 = require("array-hyper-unique");
 const util_1 = require("./lib/util");
@@ -38,8 +36,8 @@ var JsonMd;
         if (options.contribute) {
             data.contribute = data.contribute.concat(options.contribute);
         }
-        data.tags = array_hyper_unique_1.array_unique(data.tags);
-        data.contribute = array_hyper_unique_1.array_unique(data.contribute);
+        data.tags = (0, array_hyper_unique_1.array_unique)(data.tags);
+        data.contribute = (0, array_hyper_unique_1.array_unique)(data.contribute);
         data.tags.sort();
         if (data.novel_date && typeof data.novel_date !== 'string') {
             if (moment_1.default.isMoment(data.novel_date) || data.novel_date.format) {
@@ -49,13 +47,13 @@ var JsonMd;
                 data.novel_date = data.novel_date.toJSON();
             }
             else if (data.novel_date._a) {
-                data.novel_date = moment_1.default(data.novel_date._a).local().format();
+                data.novel_date = (0, moment_1.default)(data.novel_date._a).local().format();
             }
             else {
                 data.novel_date = data.novel_date.toString();
             }
         }
-        data = util_1.sortKeys(data);
+        data = (0, util_1.sortKeys)(data);
         let md = `\n# novel
 
 - title: ${data.novel_title || data.data.g_lnovel_name}
@@ -66,7 +64,7 @@ var JsonMd;
 - date: ${data.novel_date || ''}
 - status: ${data.novel_status || ''}
 `;
-        md += index_1.stringify(data.novel, 2, [
+        md += (0, index_1.stringify)(data.novel, 2, [
             'title',
             'author',
             'source',
@@ -93,7 +91,7 @@ ${(data.novel_desc || data.data.desc || '').replace(/\`/g, '\\`')}
 `;
         if (data.options) {
             md += `\n# options\n`;
-            md += index_1.stringify(data.options, 2);
+            md += (0, index_1.stringify)(data.options, 2);
         }
         return crlf_normalize_1.LF + md.replace(/^\n+|\s+$/g, '') + crlf_normalize_1.LF;
     }
@@ -187,7 +185,7 @@ ${(data.novel_desc || data.data.desc || '').replace(/\`/g, '\\`')}
             keyValueOrMode: true,
             // @ts-ignore
         }, const_1.deepmergeOptions));
-        util_1.chkInfo(ret);
+        (0, util_1.chkInfo)(ret);
         if (ret.novel.source) {
             [
                 /(wenku8)/,
@@ -202,9 +200,9 @@ ${(data.novel_desc || data.data.desc || '').replace(/\`/g, '\\`')}
                 }
             });
         }
-        ret = util_1.sortKeys(ret);
+        ret = (0, util_1.sortKeys)(ret);
         ret.novel.tags.unshift('node-novel');
-        ret.novel.tags = array_hyper_unique_1.array_unique(ret.novel.tags);
+        ret.novel.tags = (0, array_hyper_unique_1.array_unique)(ret.novel.tags);
         return ret;
     }
     JsonMd.toNovelInfo = toNovelInfo;
