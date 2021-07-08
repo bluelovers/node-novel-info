@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.14](https://github.com/bluelovers/node-novel-info/compare/node-novel-info@3.0.13...node-novel-info@3.0.14) (2021-07-08)
+
+
+### 🛠　Build System
+
+* update deps and use tslib ([bc00796](https://github.com/bluelovers/node-novel-info/commit/bc007968e0dde703a1b4e79d147bd7122fe3468b))
+
+
+
+
+
 ## [3.0.13](https://github.com/bluelovers/node-novel-info/compare/node-novel-info@3.0.12...node-novel-info@3.0.13) (2021-02-12)
 
 
