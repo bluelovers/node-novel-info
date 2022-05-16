@@ -47,20 +47,20 @@
     "tsc:esm": "tsc -p tsconfig.esm.json"
   },
   "dependencies": {
-    "array-hyper-unique": "^1.1.9",
-    "chai": "^4.3.4",
-    "crlf-normalize": "^1.0.6",
+    "array-hyper-unique": "^2.0.6",
+    "chai": "^4.3.6",
+    "crlf-normalize": "^1.0.7",
     "deepmerge-plus": "^2.1.3",
-    "env-bool": "^1.0.3",
+    "env-bool": "^2.0.1",
     "hex-lib": "^1.0.2",
     "is-plain-object": "^5.0.0",
     "jsdom-url": "^3.0.1",
     "lodash": "^4.17.21",
     "lodash-decorators": "^6.0.1",
     "mdconf2": "^2.0.14",
-    "moment": "^2.29.1",
+    "moment": "^2.29.3",
     "sort-object-keys2": "^2.0.3",
-    "tslib": "^2.3.0"
+    "tslib": "^2"
   },
   "gitHead": "f655723796683dc127d290d13d4106f21279bdae"
 }
