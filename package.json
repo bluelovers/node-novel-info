@@ -16,13 +16,13 @@
     "stringify",
     "txt"
   ],
-  "homepage": "https://github.com/bluelovers/node-novel-info#readme",
+  "homepage": "https://github.com/bluelovers/ws-node-novel/tree/master/packages/node-novel-info#readme",
   "bugs": {
-    "url": "https://github.com/bluelovers/node-novel-info/issues"
+    "url": "https://github.com/bluelovers/ws-node-novel/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bluelovers/node-novel-info.git"
+    "url": "git+https://github.com/bluelovers/ws-node-novel.git"
   },
   "license": "ISC",
   "author": "bluelovers",
