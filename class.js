@@ -6,9 +6,9 @@ const tslib_1 = require("tslib");
  * Created by user on 2019/1/21/021.
  */
 const index_1 = require("./index");
-const bind_1 = (0, tslib_1.__importDefault)(require("lodash-decorators/bind"));
+const bind_1 = tslib_1.__importDefault(require("lodash-decorators/bind"));
 const lib_1 = require("./lib");
-const cloneDeep_1 = (0, tslib_1.__importDefault)(require("lodash/cloneDeep"));
+const cloneDeep_1 = tslib_1.__importDefault(require("lodash/cloneDeep"));
 const util_1 = require("./lib/util");
 const index_2 = require("./lib/index");
 const defaultOptions = Object.freeze({});
@@ -204,23 +204,23 @@ class NodeNovelInfo {
 }
 NodeNovelInfo.parse = index_1.parse;
 NodeNovelInfo.stringify = index_1.stringify;
-(0, tslib_1.__decorate)([
+tslib_1.__decorate([
     bind_1.default,
-    (0, tslib_1.__metadata)("design:type", Function),
-    (0, tslib_1.__metadata)("design:paramtypes", [Object]),
-    (0, tslib_1.__metadata)("design:returntype", void 0)
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [Object]),
+    tslib_1.__metadata("design:returntype", void 0)
 ], NodeNovelInfo, "fixOptions", null);
-(0, tslib_1.__decorate)([
+tslib_1.__decorate([
     bind_1.default,
-    (0, tslib_1.__metadata)("design:type", Function),
-    (0, tslib_1.__metadata)("design:paramtypes", [Object, Object, Object]),
-    (0, tslib_1.__metadata)("design:returntype", void 0)
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [Object, Object, Object]),
+    tslib_1.__metadata("design:returntype", void 0)
 ], NodeNovelInfo, "create", null);
-(0, tslib_1.__decorate)([
+tslib_1.__decorate([
     bind_1.default,
-    (0, tslib_1.__metadata)("design:type", Function),
-    (0, tslib_1.__metadata)("design:paramtypes", [Object, Object, Object]),
-    (0, tslib_1.__metadata)("design:returntype", void 0)
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [Object, Object, Object]),
+    tslib_1.__metadata("design:returntype", void 0)
 ], NodeNovelInfo, "createFromString", null);
 exports.NodeNovelInfo = NodeNovelInfo;
 exports.default = NodeNovelInfo;

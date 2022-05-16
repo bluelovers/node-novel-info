@@ -10,18 +10,18 @@ Object.defineProperty(exports, "deepmergeOptions", { enumerable: true, get: func
 const mdconf2_1 = require("mdconf2");
 Object.defineProperty(exports, "mdconf", { enumerable: true, get: function () { return mdconf2_1.mdconf; } });
 const crlf_normalize_1 = require("crlf-normalize");
-const deepmerge_plus_1 = (0, tslib_1.__importDefault)(require("deepmerge-plus"));
+const deepmerge_plus_1 = tslib_1.__importDefault(require("deepmerge-plus"));
 const array_hyper_unique_1 = require("array-hyper-unique");
-const json_1 = (0, tslib_1.__importDefault)(require("./json"));
+const json_1 = tslib_1.__importDefault(require("./json"));
 const env_bool_1 = require("env-bool");
 Object.defineProperty(exports, "envVal", { enumerable: true, get: function () { return env_bool_1.envVal; } });
 Object.defineProperty(exports, "envBool", { enumerable: true, get: function () { return env_bool_1.envBool; } });
 const hex_lib_1 = require("hex-lib");
 const chai_1 = require("chai");
 const util_1 = require("./lib/util");
-(0, tslib_1.__exportStar)(require("./lib/util"), exports);
-(0, tslib_1.__exportStar)(require("./lib/types"), exports);
-(0, tslib_1.__exportStar)(require("./version"), exports);
+tslib_1.__exportStar(require("./lib/util"), exports);
+tslib_1.__exportStar(require("./lib/types"), exports);
+tslib_1.__exportStar(require("./version"), exports);
 exports.defaultOptionsParse = {
     removeRawData: true,
     disableKeyToLowerCase: true,
